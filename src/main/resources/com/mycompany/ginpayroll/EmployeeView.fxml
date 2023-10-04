@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="563.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenter.EmployeViewController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <left>
+            <AnchorPane prefHeight="563.0" prefWidth="905.0" style="-fx-background-color: #0a0d61;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="234.0" layoutY="68.0" text="Welcome to GIN Payroll System" textFill="#e1d8d8">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="timeAddBtn" layoutX="113.0" layoutY="252.0" mnemonicParsing="false" onAction="#onAddTimeClicked" prefHeight="92.0" prefWidth="133.0" text="Add Weekly Time">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="infoBtn" layoutX="386.0" layoutY="252.0" mnemonicParsing="false" onAction="#onViewEditTapped" prefHeight="92.0" prefWidth="133.0" text="View / Edit My Info">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="paySlipBtn" layoutX="661.0" layoutY="252.0" mnemonicParsing="false" onAction="#onViewSlipClicked" prefHeight="92.0" prefWidth="133.0" text="View Pay Slips">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </left>
+      </BorderPane>
+   </children>
+</StackPane>

@@ -1,0 +1,67 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
+ */
+package Presenter;
+
+import com.mycompany.ginpayroll.App;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+
+import javafx.scene.control.Button;
+/**
+ * FXML Controller class
+ *
+ * @author Chamali
+ */
+public class AdminViewController implements Initializable {
+
+
+    @FXML
+    private Button regEmpBtn;
+    @FXML
+    private Button viewEditEmpBtn;
+    @FXML
+    private Button vieweportsBtn;
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }    
+
+    @FXML
+    private void onClickRegisterEmployee(ActionEvent event) {
+        try {
+            App.setRoot("AddEmployee");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onClickEditEmployee(ActionEvent event) {
+        try {
+            App.setRoot("ViewEditEmployee");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onClickReports(ActionEvent event) {
+         try {
+            App.setRoot("GenerateReports");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+}
