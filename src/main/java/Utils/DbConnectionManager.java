@@ -21,7 +21,7 @@ public class DbConnectionManager {
     private static DbConnectionManager connectionManager = null;
     private Connection connection;
     
-    private String dbName = "payroll_db";
+    private String dbName = "hospital_db";
     private String user = "root";
     private String password = "asdf1234";
     private String url = "jdbc:mysql://localhost";
@@ -56,8 +56,8 @@ public class DbConnectionManager {
     
     public void createTablesIfNeeded() {
         createLoginTableIfNeeded();
-        createEmployeeTableIfNeeded();
-        createTimeLogTableIfNeeded();
+        createPatientTableIfNeeded();
+        createUserTableIfNeeded();
     }
     
     public Connection getConnection() {
@@ -83,8 +83,7 @@ public class DbConnectionManager {
             String createQuery = "CREATE TABLE " + TableName.login + " (\n"
                 + "username varchar(255) PRIMARY KEY, \n"
                 + "password varchar(255) NOT NULL, \n"
-                + "role varchar(255) NOT NULL, \n"
-                + "employeeId INT);";
+                + "role varchar(255) NOT NULL \n);";
             
             String password = Helper.encryptPassword("Admin@password1");
             String insertQuery = "INSERT INTO " + TableName.login + " \n"
@@ -102,34 +101,30 @@ public class DbConnectionManager {
             }
         }
     }
-  
-    private void createEmployeeTableIfNeeded() {
-        if (!doesTableExist(TableName.employee)) {
-            String createQuery = "CREATE TABLE " + TableName.employee + " (\n"
-                + "employeeId INT NOT NULL AUTO_INCREMENT, \n"
-                + "name varchar(255) NOT NULL, \n"
-                + "address varchar(255) NOT NULL, \n"
-                + "mobile varchar(255) NOT NULL, \n"
-                + "email varchar(255) NOT NULL, \n"
-                + "accountNumber varchar(255) NOT NULL, \n"
-                + "designation varchar(255) NOT NULL, \n"
-                + "hourlyRate double NOT NULL, \n"
-                + "taxRate double NOT NULL, \n"
-                + "superRate double NOT NULL, \n"
-                + "dob date NOT NULL, \n"
-                + "PRIMARY KEY (employeeId));";
+    
+    private void createUserTableIfNeeded() {
+        if (!doesTableExist(TableName.user)) {
+            String createQuery = "CREATE TABLE " + TableName.user + " (\n"
+                + "userId INT NOT NULL AUTO_INCREMENT, \n"
+                + "name varchar(255), \n" 
+                + "phone varchar(255), \n"
+                + "email varchar(255), \n"
+                + "username varchar(255) NOT NULL, \n"
+                + "password varchar(255) NOT NULL, \n"
+                + "role varchar(255) NOT NULL, \n"
+                + "PRIMARY KEY (userId));";
             
-            String incrementQuery = "ALTER TABLE " + TableName.employee + " AUTO_INCREMENT = 1001";
+            String incrementQuery = "ALTER TABLE " + TableName.user + " AUTO_INCREMENT = 001";
             
-            String fkConstraint = "ALTER TABLE " + TableName.login + " \n" +
-                "ADD CONSTRAINT FK_Employee_employeeId FOREIGN KEY (employeeId) \n" +
-                "REFERENCES "+ TableName.employee + "(employeeId);";
+//            String password = Helper.encryptPassword("Admin@password1");
+//            String insertQuery = "INSERT INTO " + TableName.user + " \n"
+//                    +"(username, password, role) \n" 
+//                    +"VALUES ('admin', '" + password + "', 'admin');";
         
             try {
                 Statement statement = connection.createStatement();
                 statement.addBatch(createQuery);
-                statement.addBatch(incrementQuery);
-                statement.addBatch(fkConstraint);
+                //statement.addBatch(insertQuery);
                 
                 statement.executeBatch();
             } catch (SQLException e) {
@@ -138,23 +133,33 @@ public class DbConnectionManager {
         }
     }
     
-    private void createTimeLogTableIfNeeded() {
-        if (!doesTableExist(TableName.timeLog)) {
-            String createQuery = "CREATE TABLE " + TableName.timeLog + " (\n"
-                + "logId INT NOT NULL AUTO_INCREMENT, \n"
-                + "date date NOT NULL, \n"
-                + "hours double NOT NULL, \n"
-                + "employeeId Int NOT NULL, \n"
-                + "PRIMARY KEY (logId));";
+    
+  
+    private void createPatientTableIfNeeded() {
+        if (!doesTableExist(TableName.patient)) {
+            String createQuery = "CREATE TABLE " + TableName.patient + " (\n"
+                + "patientId INT NOT NULL AUTO_INCREMENT, \n"
+                + "fName varchar(255) NOT NULL, \n"
+                + "lName varchar(255) NOT NULL, \n"
+                + "address varchar(255) NOT NULL, \n"
+                + "mobile varchar(255) NOT NULL, \n"
+                + "email varchar(255) NOT NULL, \n"
+                + "gender varchar(255) NOT NULL, \n"
+                + "insuranceID varchar(255) NOT NULL, \n"
+                + "dob date NOT NULL, \n"
+                + "PRIMARY KEY (patientId));";
             
-            String fkConstraint = "ALTER TABLE " + TableName.timeLog + " \n" +
-                "ADD CONSTRAINT FK_TimeLog_employeeId FOREIGN KEY (employeeId) \n" +
-                "REFERENCES "+ TableName.employee + "(employeeId);";
+            String incrementQuery = "ALTER TABLE " + TableName.patient + " AUTO_INCREMENT = 1001";
+            
+            String fkConstraint = "ALTER TABLE " + TableName.login + " \n" +
+                "ADD CONSTRAINT FK_Patient_patientId FOREIGN KEY (patientId) \n" +
+                "REFERENCES "+ TableName.patient + "(patientId);";
         
             try {
                 Statement statement = connection.createStatement();
                 statement.addBatch(createQuery);
-                statement.addBatch(fkConstraint);
+                statement.addBatch(incrementQuery);
+                //statement.addBatch(fkConstraint);
                 
                 statement.executeBatch();
             } catch (SQLException e) {
@@ -162,4 +167,29 @@ public class DbConnectionManager {
             }
         }
     }
+    
+//    private void createTimeLogTableIfNeeded() {
+//        if (!doesTableExist(TableName.timeLog)) {
+//            String createQuery = "CREATE TABLE " + TableName.timeLog + " (\n"
+//                + "logId INT NOT NULL AUTO_INCREMENT, \n"
+//                + "date date NOT NULL, \n"
+//                + "hours double NOT NULL, \n"
+//                + "employeeId Int NOT NULL, \n"
+//                + "PRIMARY KEY (logId));";
+//            
+//            String fkConstraint = "ALTER TABLE " + TableName.timeLog + " \n" +
+//                "ADD CONSTRAINT FK_TimeLog_employeeId FOREIGN KEY (employeeId) \n" +
+//                "REFERENCES "+ TableName.employee + "(employeeId);";
+//        
+//            try {
+//                Statement statement = connection.createStatement();
+//                statement.addBatch(createQuery);
+//                statement.addBatch(fkConstraint);
+//                
+//                statement.executeBatch();
+//            } catch (SQLException e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//    }
 }

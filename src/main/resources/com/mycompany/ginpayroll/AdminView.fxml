@@ -11,14 +11,14 @@
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <left>
-            <AnchorPane prefHeight="563.0" prefWidth="905.0" style="-fx-background-color: #0a0d61;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="563.0" prefWidth="905.0" style="-fx-background-color: #4B67A2;" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="188.0" layoutY="71.0" text="Welcome to GIN Payroll System" textFill="#e1d8d8">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="regEmpBtn" layoutX="104.0" layoutY="252.0" mnemonicParsing="false" onAction="#onClickRegisterEmployee" prefHeight="92.0" prefWidth="133.0" text="Register Employe">
+                  <Button fx:id="regPatientBtn" layoutX="104.0" layoutY="252.0" mnemonicParsing="false" onAction="#onClickRegisterPatient" prefHeight="92.0" prefWidth="133.0" text="Register Patient">
                      <font>
                         <Font name="Arial Bold" size="13.0" />
                      </font>

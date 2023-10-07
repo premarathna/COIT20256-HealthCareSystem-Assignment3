@@ -17,10 +17,12 @@ import java.sql.Statement;
  * @author Chamali
  */
 public class User {
+    private String name;
+    private String phone;
+    private String email;
     private String username;
     private String role;
     private String encryptedPassword; // Encoded password
-    private int employeeId;
     
     public User(String username) {
         this.username = username;
@@ -28,33 +30,24 @@ public class User {
     }
     
     public User(
+            int userId,
+            String name, 
+            String phone, 
+            String email, 
             String usernane, 
             String decryptedPassword,
             String role
     ) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
         this.username = usernane;
         this.encryptedPassword = Helper.encryptPassword(decryptedPassword);
         this.role = role;
     }
     
-    public User(
-            String usernane, 
-            String encryptedPassword,
-            String role,
-            int employeeId
-    ) {
-        this.username = usernane;
-        this.encryptedPassword = encryptedPassword;
-        this.role = role;
-        this.employeeId = employeeId;
-    }
-    
     public String getUsername() {
         return this.username;
-    }
-    
-    public int getEmployeeId() {
-        return this.employeeId;
     }
     
     public String getEncryptedPassword() {
@@ -69,13 +62,9 @@ public class User {
         return this.role;
     }
     
-    public void setEmployeeId(int id) {
-        this.employeeId = id;
-    }
-    
     private void fetchUserDetails() {
         User userModel = null;
-        String query = "SELECT * from " + TableName.login
+        String query = "SELECT * from " + TableName.user
                 + " WHERE username = '" + username + "';";
         
         try {
@@ -86,27 +75,30 @@ public class User {
             while (results.next()) {
                 this.role = results.getString("role");
                 this.encryptedPassword = results.getString("password");
-                this.employeeId = results.getInt("employeeId");
             }  
         } catch (SQLException e) {
              System.out.println(e.getMessage());
         }
     }
     
-    public void insertUser() {
-           String insertQuery = "INSERT INTO " + TableName.login + "\n"
-            +"(username, password, role, employeeId)\n"
-            +"VALUES('" + this.username + "', \n"
+    public boolean insertUser() {
+           String insertQuery = "INSERT INTO " + TableName.user + "\n"
+            +"(name,phone,email,username, password, role)\n"
+            +"VALUES('" + this.name + "', \n"
+            +"'" + this.phone + "', \n"
+            +"'" + this.email + "', \n"
+            +"'" + this.username + "', \n"
             +"'" + this.encryptedPassword + "', \n"
-            +"'" + this.role + "', \n"      
-            +"'" + this.employeeId + "');";
+            +"'" + this.role +"');";
         
         try {
             Statement statement = DbConnectionManager.shared().getConnection().createStatement();
             statement.execute(insertQuery);
+            return true;
             
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 }

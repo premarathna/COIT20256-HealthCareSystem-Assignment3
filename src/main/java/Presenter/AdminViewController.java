@@ -24,11 +24,11 @@ public class AdminViewController implements Initializable {
 
 
     @FXML
-    private Button regEmpBtn;
-    @FXML
     private Button viewEditEmpBtn;
     @FXML
     private Button vieweportsBtn;
+    @FXML
+    private Button regPatientBtn;
     /**
      * Initializes the controller class.
      */
@@ -38,9 +38,9 @@ public class AdminViewController implements Initializable {
     }    
 
     @FXML
-    private void onClickRegisterEmployee(ActionEvent event) {
+    private void onClickRegisterPatient(ActionEvent event) {
         try {
-            App.setRoot("AddEmployee");
+            App.setRoot("AddPatient");
         } catch (IOException ex) {
             ex.printStackTrace();
         }

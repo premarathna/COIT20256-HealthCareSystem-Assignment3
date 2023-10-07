@@ -32,11 +32,13 @@ public class LoginController implements Initializable {
 
 
     @FXML
-    private Button loginBtn;
-    @FXML
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
+    @FXML
+    private Button loginBtn;
+    @FXML
+    private Button loginBtn1;
     /**
      * Initializes the controller class.
      */

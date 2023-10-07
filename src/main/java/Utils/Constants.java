@@ -10,5 +10,5 @@ package Utils;
  */
 public class Constants {
     public static String adminRole = "admin";
-    public static String employeeRole = "employee";
+    public static String patientRole = "patient";
 }

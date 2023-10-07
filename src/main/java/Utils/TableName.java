@@ -10,6 +10,6 @@ package Utils;
  */
 public class TableName {
     public static String login = "Login";
-    public static String employee = "Employee";
-    public static String timeLog = "TimeLog";
+    public static String patient = "Patient";
+    public static String user = "User";
 }

@@ -27,6 +27,11 @@
                         <Font name="Arial Bold" size="14.0" />
                      </font>
                   </Button>
+                  <Button fx:id="loginBtn1" layoutX="227.0" layoutY="467.0" mnemonicParsing="false" onAction="#didClickLogin" prefHeight="41.0" prefWidth="169.0" style="-fx-background-color: #0a0d61;" text="Register Here" textFill="#e6e5eb">
+                     <font>
+                        <Font name="Arial Bold" size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
          </right>

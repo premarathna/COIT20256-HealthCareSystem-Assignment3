@@ -10,7 +10,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import model.Employee;
+//import model.Employee;
+import model.Patient;
+
 
 /**
  *
@@ -63,9 +65,34 @@ public class Helper {
         return false;
     }
     
-    public static boolean isNameValid(String name) {
+     public static boolean isInsuaranceIdValid(String mobile) {
+        //10 digita from 0 to 9
+        String regex =   "^[0-9]{10}$";
+        if(mobile.matches(regex)) {
+            return true;
+        }
+        return false;
+    }
+    
+    public static boolean islNameValid(String lName) {
         String regex = "^[a-zA-Z ]*$";
-        if(name.matches(regex)) {
+        if(lName.matches(regex)) {
+            return true;
+        }
+        return false;
+    }
+    
+    public static boolean isNameValid(String lName) {
+        String regex = "^[a-zA-Z ]*$";
+        if(lName.matches(regex)) {
+            return true;
+        }
+        return false;
+    }
+    
+    public static boolean isfNameValid(String fName) {
+        String regex = "^[a-zA-Z ]*$";
+        if(fName.matches(regex)) {
             return true;
         }
         return false;
