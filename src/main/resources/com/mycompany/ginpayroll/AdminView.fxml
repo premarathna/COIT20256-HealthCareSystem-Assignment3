@@ -13,22 +13,32 @@
          <left>
             <AnchorPane prefHeight="563.0" prefWidth="905.0" style="-fx-background-color: #4B67A2;" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="188.0" layoutY="71.0" text="Welcome to GIN Payroll System" textFill="#e1d8d8">
+                  <Label layoutX="188.0" layoutY="71.0" prefHeight="27.0" prefWidth="374.0" text="Welcome to Health Care System" textFill="#e1d8d8">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="regPatientBtn" layoutX="104.0" layoutY="252.0" mnemonicParsing="false" onAction="#onClickRegisterPatient" prefHeight="92.0" prefWidth="133.0" text="Register Patient">
+                  <Button fx:id="regPatientBtn" layoutX="104.0" layoutY="252.0" mnemonicParsing="false" onAction="#onClickRegisterPatient" prefHeight="92.0" prefWidth="152.0" text="Register Patient">
                      <font>
                         <Font name="Arial Bold" size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="viewEditEmpBtn" layoutX="370.0" layoutY="252.0" mnemonicParsing="false" onAction="#onClickEditEmployee" prefHeight="92.0" prefWidth="151.0" text="View / Edit Employee">
+                  <Button fx:id="viewEditPatientBtn" layoutX="370.0" layoutY="252.0" mnemonicParsing="false" onAction="#onClickEditPatient" prefHeight="92.0" prefWidth="151.0" text="View / Edit Patient">
                      <font>
                         <Font name="Arial Bold" size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="vieweportsBtn" layoutX="654.0" layoutY="252.0" mnemonicParsing="false" onAction="#onClickReports" prefHeight="92.0" prefWidth="133.0" text="Reports">
+                  <Button fx:id="vieweportsBtn" layoutX="643.0" layoutY="252.0" mnemonicParsing="false" onAction="#onClickReports" prefHeight="92.0" prefWidth="142.0" text="Reports">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="makeAppoinmentBtn" layoutX="107.0" layoutY="397.0" mnemonicParsing="false" onAction="#onClickMakeAppoinment" prefHeight="92.0" prefWidth="146.0" text="Make Appoinments">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="billingBtn" layoutX="370.0" layoutY="396.0" mnemonicParsing="false" onAction="#onClickBilling" prefHeight="92.0" prefWidth="146.0" text="Billing">
                      <font>
                         <Font name="Arial Bold" size="13.0" />
                      </font>
