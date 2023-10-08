@@ -38,7 +38,7 @@ public class LoginController implements Initializable {
     @FXML
     private Button loginBtn;
     @FXML
-    private Button loginBtn1;
+    private Button registerBtn;
     /**
      * Initializes the controller class.
      */
@@ -63,7 +63,7 @@ public class LoginController implements Initializable {
                 // Setting the current user object to the userManager singleton instance
                 UserManager.shared().setUser(user);
 
-                if (user.getRole().equals(Constants.adminRole)) {
+                if (user.getRole().equalsIgnoreCase("Admin")){
                     try {
                         App.setRoot("AdminView");
                     } catch (IOException ex) {
@@ -83,4 +83,13 @@ public class LoginController implements Initializable {
             Helper.showAlert("Error", "Incorrect username");
         }
     }   
+
+    @FXML
+    private void didClickRegister(ActionEvent event) {
+        try {
+                App.setRoot("RegisterUser");
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+    }
 }

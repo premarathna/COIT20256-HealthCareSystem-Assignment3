@@ -43,6 +43,8 @@ public class RegisterUserController implements Initializable {
     private TextField nameField;
     @FXML
     private ComboBox<String> roleComboBox;
+    @FXML
+    private Button backToLoginBtn;
     /**
      * Initializes the controller class.
      */
@@ -149,6 +151,15 @@ public class RegisterUserController implements Initializable {
             passwordField.getText(),   
             roleComboBox.getValue()
         );
+    }
+
+    @FXML
+    private void didClickBackToLogin(ActionEvent event) {
+        try {
+                App.setRoot("Login");
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
     }
 
 }
