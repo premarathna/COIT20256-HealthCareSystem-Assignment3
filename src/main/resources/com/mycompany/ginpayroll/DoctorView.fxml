@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="563.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenter.DoctorViewController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <left>
+            <AnchorPane prefHeight="563.0" prefWidth="905.0" style="-fx-background-color: #4B67A2;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="234.0" layoutY="68.0" text="Welcome to Healthcare System" textFill="#e1d8d8">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="viewPatientBtn" layoutX="206.0" layoutY="252.0" mnemonicParsing="false" onAction="#onClickViewPatient" prefHeight="92.0" prefWidth="151.0" text="View Patient">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="medicalHistoryBtn" layoutX="502.0" layoutY="252.0" mnemonicParsing="false" onAction="#onViewMedicalHistoryTapped" prefHeight="92.0" prefWidth="154.0" text="View Medical History">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </left>
+      </BorderPane>
+   </children>
+</StackPane>

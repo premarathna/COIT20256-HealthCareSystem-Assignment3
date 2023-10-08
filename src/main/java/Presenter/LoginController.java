@@ -4,7 +4,6 @@
  */
 package Presenter;
 
-import Utils.Constants;
 import Utils.DbConnectionManager;
 import Utils.Helper;
 import Utils.UserManager;
@@ -71,7 +70,7 @@ public class LoginController implements Initializable {
                     }
                 } else {
                     try {
-                        App.setRoot("EmployeeView");
+                        App.setRoot("DoctorView");
                     } catch (IOException ex) {
                         System.out.println(ex.getMessage());
                     }
