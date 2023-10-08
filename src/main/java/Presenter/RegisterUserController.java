@@ -5,6 +5,8 @@
 package Presenter;
 
 import Utils.Helper;
+import com.mycompany.ginpayroll.App;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
@@ -55,8 +57,12 @@ public class RegisterUserController implements Initializable {
             User userModel = getUserModel() ;
             boolean success = userModel.insertUser();
             if(success) {
-                Helper.showAlert("Success", "User added succesfully!");
-                clearUserInput();
+                Helper.showAlert("Success", "User registered succesfully!");
+                try {
+                        App.setRoot("Login");
+                    } catch (IOException ex) {
+                        System.out.println(ex.getMessage());
+                    }
             } else {
                 Helper.showAlert("Error", "Failed to add User");
             }

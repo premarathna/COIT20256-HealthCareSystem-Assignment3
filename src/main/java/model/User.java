@@ -82,13 +82,13 @@ public class User {
     }
     
     public boolean insertUser() {
-           String insertQuery = "INSERT INTO " + TableName.user + "\n"
-            +"(name,phone,email,username, password, role)\n"
-            +"VALUES('" + this.name + "', \n"
-            +"'" + this.phone + "', \n"
-            +"'" + this.email + "', \n"
-            +"'" + this.username + "', \n"
-            +"'" + this.encryptedPassword + "', \n"
+        String insertQuery = "INSERT INTO " + TableName.user + "\n"
+         +"(name,phone,email,username, password, role)\n"
+         +"VALUES('" + this.name + "', \n"
+         +"'" + this.phone + "', \n"
+         +"'" + this.email + "', \n"
+         +"'" + this.username + "', \n"
+         +"'" + this.encryptedPassword + "', \n"
             +"'" + this.role +"');";
         
         try {
