@@ -58,7 +58,7 @@ public class AdminViewController implements Initializable {
     @FXML
     private void onClickReports(ActionEvent event) {
          try {
-            App.setRoot("GenerateReports");
+            App.setRoot("ReportView");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
