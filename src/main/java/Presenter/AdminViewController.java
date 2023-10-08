@@ -24,11 +24,15 @@ public class AdminViewController implements Initializable {
 
 
     @FXML
-    private Button viewEditEmpBtn;
-    @FXML
     private Button vieweportsBtn;
     @FXML
     private Button regPatientBtn;
+    @FXML
+    private Button viewEditPatientBtn;
+    @FXML
+    private Button makeAppoinmentBtn;
+    @FXML
+    private Button billingBtn;
     /**
      * Initializes the controller class.
      */
@@ -47,21 +51,24 @@ public class AdminViewController implements Initializable {
     }
 
     @FXML
-    private void onClickEditEmployee(ActionEvent event) {
-        try {
-            App.setRoot("ViewEditEmployee");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @FXML
     private void onClickReports(ActionEvent event) {
          try {
             App.setRoot("GenerateReports");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @FXML
+    private void onClickEditPatient(ActionEvent event) {
+    }
+
+    @FXML
+    private void onClickMakeAppoinment(ActionEvent event) {
+    }
+
+    @FXML
+    private void onClickBilling(ActionEvent event) {
     }
     
 }

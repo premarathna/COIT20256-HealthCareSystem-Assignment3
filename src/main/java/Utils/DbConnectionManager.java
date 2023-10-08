@@ -116,11 +116,6 @@ public class DbConnectionManager {
             
             String incrementQuery = "ALTER TABLE " + TableName.user + " AUTO_INCREMENT = 001";
             
-//            String password = Helper.encryptPassword("Admin@password1");
-//            String insertQuery = "INSERT INTO " + TableName.user + " \n"
-//                    +"(username, password, role) \n" 
-//                    +"VALUES ('admin', '" + password + "', 'admin');";
-        
             try {
                 Statement statement = connection.createStatement();
                 statement.addBatch(createQuery);
