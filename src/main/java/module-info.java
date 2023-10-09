@@ -9,5 +9,6 @@ module com.mycompany.ginpayroll {
     exports com.mycompany.ginpayroll;
     opens Presenter to javafx.fxml;
     exports Presenter;
+    requires jasperreports;
     
 }
