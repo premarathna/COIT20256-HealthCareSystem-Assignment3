@@ -13,54 +13,50 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 
 /**
  * FXML Controller class
  *
  * @author N A A S Senanayake
  */
-public class ReportViewController implements Initializable {
+public class AppointmentReportViewController implements Initializable {
 
     @FXML
-    private Button btnPatientReport;
+    private ComboBox<String> cmbMonth;
     @FXML
-    private Button btnAppointmentReport;
+    private Button btnBackToHome;
     @FXML
-    private Button btnFinancialReport;
+    private Button btnBack;
+    @FXML
+    private Button btnGenerate;
+    @FXML
+    private ComboBox<Integer> cmbYear;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        cmbMonth.getItems().addAll("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+        cmbYear.getItems().addAll(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023);
     }
 
     @FXML
-    private void navigateToPatientReport(ActionEvent event) {
+    private void backToHome(ActionEvent event) {
+    }
+
+    @FXML
+    private void back(ActionEvent event) {
         try {
-            App.setRoot("PatientReportView");
+            App.setRoot("ReportView");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     @FXML
-    private void navigateToAppointmentReport(ActionEvent event) {
-        try {
-            App.setRoot("AppointmentReportView");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void navigateToFinancialReport(ActionEvent event) {
-        try {
-            App.setRoot("FinancialReportView");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    private void generateReport(ActionEvent event) {
     }
 
 }
