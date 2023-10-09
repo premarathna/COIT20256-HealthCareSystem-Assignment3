@@ -45,7 +45,7 @@ public class Patient {
     
     public boolean insertPatient() {
         String insertQuery = "INSERT INTO " + TableName.patient + "(\n"
-            +"fName, lNAme, address, gender, mobile, email, insuranceId, dob)\n"
+            +"fName, lNAme, address, gender, mobile, email, insuaranceId, dob)\n"
             +"VALUES('" + this.fName + "', \n"
             +"'" + this.lName + "', \n"
             +"'" + this.address + "', \n"
@@ -62,6 +62,59 @@ public class Patient {
             ResultSet results = statement.getGeneratedKeys();
             
             // Adding Emloyee Login details to Login table          
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public static Patient fetchPatientBy(int patientId) {
+        String selectQuery = String.format(
+            "SELECT * FROM %s p WHERE p.patientId = %s LIMIT 1", 
+            TableName.patient, patientId);
+        try {
+            Statement statement = DbConnectionManager.shared().getConnection().createStatement();
+            ResultSet results = statement.executeQuery(selectQuery);
+       
+            Patient patient = null;
+            while (results.next()) {
+                patient = new Patient(
+                        results.getInt("patientId"),
+                        results.getString("fName"), 
+                        results.getString("lName"), 
+                        results.getString("address"),
+                        results.getString("gender"), 
+                        results.getString("mobile"),  
+                        results.getString("email"), 
+                        results.getDate("dob"),
+                        results.getString("insuaranceId")
+                );
+            }
+            return patient;
+            // TODO: Query Login table to get username and password
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public boolean updatePatient() {
+        String updateQuery = "UPDATE " + TableName.patient + "\n"
+            +"SET \n"
+            +"fName = '" + this.fName + "', \n"
+            +"lName = '" + this.lName + "', \n"
+            +"address = '" + this.address + "', \n"
+            +"gender = '" + this.gender + "', \n"
+            +"mobile = '" + this.mobile + "', \n"
+            +"email = '" + this.email + "', \n"
+            +"dob = '" + this.dob + "', \n"
+            +"insuaranceId = '" + this.insuaranceId + "' \n"
+            +"WHERE patientId = '" + this.patientId + "';";
+        
+        try {
+            Statement statement = DbConnectionManager.shared().getConnection().createStatement();
+            statement.execute(updateQuery);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

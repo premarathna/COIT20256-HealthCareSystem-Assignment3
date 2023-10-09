@@ -61,6 +61,11 @@ public class AdminViewController implements Initializable {
 
     @FXML
     private void onClickEditPatient(ActionEvent event) {
+         try{
+                App.setRoot("ViewEditPatient");
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
     }
 
     @FXML
