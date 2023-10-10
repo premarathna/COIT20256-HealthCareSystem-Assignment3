@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aabb2fc6-39a3-42d7-a5fb-59914c671552">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM hospital_db.invoice_report;]]>
+	</queryString>
+	<field name="invoiceReportId" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="invoiceId" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="date" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="time" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dateCreated" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="appoinmentId" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="doctorName" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="patientFName" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="patientLName" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="156" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="407" height="95" backcolor="#003366" uuid="57d8a595-282c-4a75-baa1-b8708793ebc9"/>
+				<staticText>
+					<reportElement style="Title" x="0" y="0" width="406" height="66" uuid="e734901b-c449-4fe6-a47d-4f157980910e"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[Health Care System]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="SubTitle" x="82" y="66" width="249" height="29" uuid="f91b3cac-48dc-4bc4-b496-47b9d86a91a7"/>
+					<textElement>
+						<font size="22" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Invoice Details Report ]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="100" width="407" height="32" forecolor="#000000" backcolor="#0066CC" uuid="3ad07fc3-14aa-4271-b032-0c9a48dd3716"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="0" y="12" width="144" height="20" forecolor="#FFFFFF" uuid="7c36bb6c-04e7-48f3-90ac-b2a5d527f3e9"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+			<image>
+				<reportElement x="426" y="0" width="127" height="132" forecolor="#000000" uuid="e0f65dac-7058-4782-b9b0-3cb6e497bfd3"/>
+				<imageExpression><![CDATA["C:\\Users\\user\\Desktop\\CQU\\COIT20256-HealthCareSystem-Assignment3\\src\\main\\resources\\com\\mycompany\\ginpayroll\\imgDoctor.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="0" y="27" width="38" height="18" forecolor="#003366" uuid="3299080b-26c6-4e06-b1ef-7cb9a02c2ad2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[InvID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="61" y="27" width="34" height="18" forecolor="#003366" uuid="69f05043-2214-4151-96ec-dc0ffc469b5a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="119" y="27" width="44" height="18" forecolor="#003366" uuid="0ef71478-3d9e-486d-a770-097c7bca8e57"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="177" y="27" width="76" height="18" forecolor="#003366" uuid="349c1bd9-34c9-4b78-b931-5f9a8240d233"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DateCreated]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="270" y="27" width="54" height="18" forecolor="#003366" uuid="003a009b-08f6-4793-b5bf-c914aa555069"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[AppID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="324" y="27" width="82" height="18" forecolor="#003366" uuid="31f5bf41-5d02-4f35-82dd-e01a274b21f3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DoctorName]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="419" y="27" width="61" height="18" forecolor="#003366" uuid="e570fbe4-1779-4a91-84fe-51c306d19aae"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PFName]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="494" y="27" width="61" height="18" forecolor="#003366" uuid="8e3f5bf2-0b22-4bb2-9df0-c39a181f921e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PLName]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="62" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="49" uuid="b4abc48e-75a0-45bd-818f-21eb75f0bb19"/>
+				<textField>
+					<reportElement x="2" y="15" width="36" height="20" uuid="767e1a96-3b20-458d-bc8e-0f1170abb1c8"/>
+					<textFieldExpression><![CDATA[$F{invoiceId}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="61" y="15" width="34" height="20" uuid="50d44c58-fad7-4c96-adac-2b24e0835ae8"/>
+					<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="119" y="15" width="44" height="20" uuid="a8686470-4b75-4bbb-9ef5-f3cd070baaa9"/>
+					<textFieldExpression><![CDATA[$F{time}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="177" y="15" width="76" height="20" uuid="85dd8ada-92e6-4169-a775-a2d87c383f10"/>
+					<textFieldExpression><![CDATA[$F{dateCreated}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="325" y="16" width="81" height="20" uuid="60c3589f-8926-438a-9436-1b40eb86473f"/>
+					<textFieldExpression><![CDATA[$F{doctorName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="419" y="15" width="61" height="20" uuid="d76dc979-a1a7-4377-811c-6107c9511db2"/>
+					<textFieldExpression><![CDATA[$F{patientFName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="494" y="15" width="61" height="20" uuid="23137fec-2e64-441f-944c-0a16a1c11309"/>
+					<textFieldExpression><![CDATA[$F{patientLName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="270" y="15" width="41" height="20" uuid="b2e414b8-b30c-4cac-9ffa-b84881ba4595"/>
+					<textFieldExpression><![CDATA[$F{appoinmentId}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="43" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="94ab5451-7ce7-4fe2-8678-cd025e6a7c9a"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="75" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="24" forecolor="#D0B48E" backcolor="#0066CC" uuid="7d019c74-997d-4c4c-bd41-ec7a7a143fa2"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="c833c491-96ef-47d7-8c30-342368e3e1c0"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="0b06e8fc-c98a-41de-8ab8-4ec5173f4fd0"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF" uuid="3e144207-9939-4e05-b70e-c492c8ed71d5"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

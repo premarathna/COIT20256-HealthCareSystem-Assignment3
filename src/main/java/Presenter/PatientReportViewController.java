@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -71,16 +72,13 @@ public class PatientReportViewController implements Initializable {
     private void back(ActionEvent event) throws SQLException {
         try {
             App.setRoot("ReportView");
-            pst = con.getConnection().prepareStatement("delete from patient_report");
-            pst.executeUpdate();
-            System.out.println("Delete successfully");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     @FXML
-    void generateReport(ActionEvent event) throws JRException {
+    void generateReport(ActionEvent event) throws JRException, SQLException {
 
         try {
             String userEnteredMonth = cmbMonth.getValue();
@@ -108,25 +106,63 @@ public class PatientReportViewController implements Initializable {
                 pst = con.getConnection().prepareStatement("SELECT * FROM health_records WHERE MONTH(dateCreated) = ? AND YEAR(dateCreated) = ?");
                 pst.setInt(1, userEnteredMonthNumber);
                 pst.setInt(2, userEnteredYear);
-                ResultSet rs = pst.executeQuery();
+                ResultSet rs1 = pst.executeQuery();
+                System.out.println("Get details from health_records");
 
-                while (rs.next()) {
-                    pst = con.getConnection().prepareStatement("insert into patient_report(fName,lName,month,disease,age,phone,email,address,dateCreated,insuranceId,patientId )values(?,?,?,?,?,?,?,?,?,?,?)");
-                    pst.setString(1, rs.getString("fName"));
-                    pst.setString(2, rs.getString("lName"));
-                    pst.setString(3, cmbMonth.getValue());
-                    pst.setString(4, rs.getString("disease"));
-                    pst.setString(5, rs.getString("age"));
-                    pst.setString(6, rs.getString("phone"));
-                    pst.setString(7, rs.getString("email"));
-                    pst.setString(8, rs.getString("address"));
-                    pst.setString(9, rs.getString("dateCreated"));
-                    pst.setString(10, rs.getString("insuranceId"));
-                    pst.setString(11, rs.getString("patientId"));
+                // Check if rs1 is empty or not before entering the while loop
+                if (!rs1.next()) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Health Care System");
+                    alert.setContentText("No patient records found for this Year and Month.");
+                    alert.showAndWait();
+
+                    System.out.println("No patient records found");
+                } else {
+                    // Start the while loop
+                    do {
+                        pst = con.getConnection().prepareStatement("SELECT * FROM patient WHERE patientId = ?");
+                        pst.setInt(1, rs1.getInt("patientId"));
+                        ResultSet rs2 = pst.executeQuery();
+                        System.out.println("Get details from patient");
+
+                        if (rs2.next()) {
+                            pst = con.getConnection().prepareStatement("insert into patient_report(fName,lName,phone,email,address,dateCreated,insuranceId,patientId )values(?,?,?,?,?,?,?,?)");
+                            pst.setString(1, rs2.getString("fName"));
+                            pst.setString(2, rs2.getString("lName"));
+                            pst.setString(3, rs2.getString("mobile"));
+                            pst.setString(4, rs2.getString("email"));
+                            pst.setString(5, rs2.getString("address"));
+                            pst.setString(6, rs1.getString("dateCreated"));
+                            pst.setString(7, rs2.getString("insuranceId"));
+                            pst.setInt(8, rs2.getInt("patientId"));
+                            pst.executeUpdate();
+                        }
+                    } while (rs1.next());
+
+                    System.out.println("Insert successfully to patient_report");
+
+                    JasperDesign jdesign = JRXmlLoader.load("C:\\Users\\user\\Desktop\\CQU\\COIT20256-HealthCareSystem-Assignment3\\src\\main\\resources\\com\\mycompany\\ginpayroll\\PatientReport.jrxml");
+                    String query = "select * from patient_report";//
+                    JRDesignQuery updateQuery = new JRDesignQuery();
+                    updateQuery.setText(query);
+                    jdesign.setQuery(updateQuery);
+                    JasperReport jreport = JasperCompileManager.compileReport(jdesign);
+                    JasperPrint jprint = JasperFillManager.fillReport(jreport, null, con.getConnection());
+                    JasperViewer JasperViewer = new JasperViewer(jprint, false);
+                    JasperViewer.viewReport(jprint, false);
+                    JasperViewer.dispose();
+
+                    pst = con.getConnection().prepareStatement("delete from patient_report");
                     pst.executeUpdate();
+                    System.out.println("Delete successfully");
                 }
-                System.out.println("Insert successfully");
+
             } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Health Care System");
+                alert.setContentText("Invalid Year and Month.");
+                alert.showAndWait();
+
                 System.out.println("Invalid month entered.");
             }
 
@@ -134,16 +170,6 @@ public class PatientReportViewController implements Initializable {
             ex.printStackTrace();
         }
 
-        JasperDesign jdesign = JRXmlLoader.load("C:\\Users\\user\\Desktop\\CQU\\COIT20256-HealthCareSystem-Assignment3\\src\\main\\resources\\com\\mycompany\\ginpayroll\\PatientReport.jrxml");
-                String query = "select * from patient_report";//
-                JRDesignQuery updateQuery = new JRDesignQuery();
-                updateQuery.setText(query);
-                jdesign.setQuery(updateQuery);
-                JasperReport jreport = JasperCompileManager.compileReport(jdesign);
-                JasperPrint jprint = JasperFillManager.fillReport(jreport, null, con.getConnection());
-                JasperViewer JasperViewer = new JasperViewer(jprint, false);
-                JasperViewer.viewReport(jprint, false);
-                JasperViewer.dispose();
     }
 
 }

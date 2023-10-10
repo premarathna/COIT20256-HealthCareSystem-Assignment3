@@ -13,4 +13,6 @@ public class TableName {
     public static String patient = "Patient";
     public static String user = "User";
     static String patient_report = "Patient_Report";
+    static String appoinment_report = "Appoinment_Report";
+    static String invoice_report = "Invoice_Report";
 }

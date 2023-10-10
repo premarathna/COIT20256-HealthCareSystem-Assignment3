@@ -61,6 +61,8 @@ public class DbConnectionManager {
         createPatientTableIfNeeded();
         createUserTableIfNeeded();
         createPatientReportTableIfNeeded();
+        createAppoinmentReportTableIfNeeded();
+        createInvoiceReportTableIfNeeded();
     }
 
     public Connection getConnection() {
@@ -117,7 +119,7 @@ public class DbConnectionManager {
                     + "mobile varchar(255) NOT NULL, \n"
                     + "email varchar(255) NOT NULL, \n"
                     + "gender varchar(255) NOT NULL, \n"
-                    + "insuaranceID varchar(255) NOT NULL, \n"
+                    + "insuaranceId varchar(255) NOT NULL, \n"
                     + "dob date NOT NULL, \n"
                     + "PRIMARY KEY (patientId));";
 
@@ -146,9 +148,6 @@ public class DbConnectionManager {
                     + "patientReportId INT NOT NULL AUTO_INCREMENT, \n"
                     + "fName varchar(255) NOT NULL, \n"
                     + "lName varchar(255) NOT NULL, \n"
-                    + "month varchar(255) NOT NULL, \n"
-                    + "disease varchar(255) NOT NULL, \n"
-                    + "age INT NOT NULL, \n"
                     + "phone varchar(255) NOT NULL, \n"
                     + "email varchar(255) NOT NULL, \n"
                     + "address varchar(255) NOT NULL, \n"
@@ -171,4 +170,62 @@ public class DbConnectionManager {
             }
         }
     }
+
+    private void createAppoinmentReportTableIfNeeded() {
+        if (!doesTableExist(TableName.appoinment_report)) {
+            String createQuery = "CREATE TABLE " + TableName.appoinment_report + " (\n"
+                    + "appoinmentReportId INT NOT NULL AUTO_INCREMENT, \n"
+                    + "appoinmentId INT NOT NULL, \n"
+                    + "date varchar(255) NOT NULL, \n"
+                    + "time varchar(255) NOT NULL, \n"
+                    + "dateCreated varchar(255) NOT NULL, \n"
+                    + "patientFName varchar(255) NOT NULL, \n"
+                    + "patientLName varchar(255) NOT NULL, \n"
+                    + "doctorName varchar(255) NOT NULL, \n"
+                    + "PRIMARY KEY (appoinmentReportId));";
+
+            String incrementQuery = "ALTER TABLE " + TableName.appoinment_report + " AUTO_INCREMENT = 3001";
+
+            try {
+                Statement statement = connection.createStatement();
+                statement.addBatch(createQuery);
+                statement.addBatch(incrementQuery);
+                //statement.addBatch(fkConstraint);
+
+                statement.executeBatch();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void createInvoiceReportTableIfNeeded() {
+        if (!doesTableExist(TableName.invoice_report)) {
+            String createQuery = "CREATE TABLE " + TableName.invoice_report + " (\n"
+                    + "invoiceReportId INT NOT NULL AUTO_INCREMENT, \n"
+                    + "invoiceId INT NOT NULL, \n"
+                    + "date varchar(255) NOT NULL, \n"
+                    + "time varchar(255) NOT NULL, \n"
+                    + "dateCreated varchar(255) NOT NULL, \n"
+                    + "appointmentId INT NOT NULL, \n"
+                    + "doctorName varchar(255) NOT NULL, \n"
+                    + "patientFName varchar(255) NOT NULL, \n"
+                    + "patientLName varchar(255) NOT NULL, \n"
+                    + "PRIMARY KEY (appoinmentReportId));";
+
+            String incrementQuery = "ALTER TABLE " + TableName.invoice_report + " AUTO_INCREMENT = 4001";
+
+            try {
+                Statement statement = connection.createStatement();
+                statement.addBatch(createQuery);
+                statement.addBatch(incrementQuery);
+                //statement.addBatch(fkConstraint);
+
+                statement.executeBatch();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
 }
