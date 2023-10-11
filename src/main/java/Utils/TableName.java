@@ -13,4 +13,9 @@ public class TableName {
     public static String patient = "Patient";
     public static String user = "User";
     static String patient_report = "Patient_Report";
+    public static String doctor = "Doctor"; // Add the doctor table
+    public static String appointment = "Appointment"; // Add the Appointment table
+    public static String timeslot = "Timeslot";
+
+    
 }

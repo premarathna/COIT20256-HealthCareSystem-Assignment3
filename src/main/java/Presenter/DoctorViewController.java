@@ -25,6 +25,10 @@ public class DoctorViewController implements Initializable {
     private Button viewPatientBtn;
     @FXML
     private Button medicalHistoryBtn;
+    @FXML
+    private Button changeAvailabilityBtn;
+    @FXML
+    private int userId; // Add a field to store the userId
     /**
      * Initializes the controller class.
      */
@@ -45,6 +49,16 @@ public class DoctorViewController implements Initializable {
     @FXML
     private void onViewMedicalHistoryTapped(ActionEvent event) {
     }
+    @FXML
+    private void onChangeAvailability(ActionEvent event) {
+                try{
+                App.setRoot("ChangeAvailability");
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+    }
 
-
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }

@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.User;
@@ -25,7 +27,7 @@ public class DbConnectionManager {
 
     private String dbName = "hospital_db";
     private String user = "root";
-    private String password = "Sakuni19931017";//asdf1234
+    private String password = "123123";//asdf1234
     private String url = "jdbc:mysql://localhost";
 
     public DbConnectionManager() {
@@ -61,6 +63,9 @@ public class DbConnectionManager {
         createPatientTableIfNeeded();
         createUserTableIfNeeded();
         createPatientReportTableIfNeeded();
+        createDoctorTableIfNeeded();
+        createAppointmentTableIfNeeded();
+        createTimeslotTableIfNeeded();
     }
 
     public Connection getConnection() {
@@ -171,4 +176,142 @@ public class DbConnectionManager {
             }
         }
     }
+    
+    private void createDoctorTableIfNeeded() {
+        if (!doesTableExist(TableName.doctor)) {
+            String createQuery = "CREATE TABLE " + TableName.doctor + " (\n"
+                    + "doctorId INT NOT NULL AUTO_INCREMENT, \n"
+                    + "userId INT NOT NULL, \n"
+                    + "availability VARCHAR(255) NOT NULL, \n"
+                    + "name VARCHAR(255), \n" // Add the 'name' column
+                    + "PRIMARY KEY (doctorId)"
+                    + ");";
+            try {
+                Statement statement = connection.createStatement();
+                statement.addBatch(createQuery);
+                statement.executeBatch();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    private void createTimeslotTableIfNeeded() {
+    if (!doesTableExist(TableName.timeslot)) {
+        String createQuery = "CREATE TABLE " + TableName.timeslot + " (\n"
+       + "timeslotId INT NOT NULL AUTO_INCREMENT, \n"
+        + "doctorId INT NOT NULL, \n"
+        + "monday1 BOOLEAN NOT NULL, \n"
+        + "monday2 BOOLEAN NOT NULL, \n"
+        + "monday3 BOOLEAN NOT NULL, \n"
+        + "monday4 BOOLEAN NOT NULL, \n"
+        + "tuesday1 BOOLEAN NOT NULL, \n"
+        + "tuesday2 BOOLEAN NOT NULL, \n"
+        + "tuesday3 BOOLEAN NOT NULL, \n"
+        + "tuesday4 BOOLEAN NOT NULL, \n"
+        + "wednesday1 BOOLEAN NOT NULL, \n"
+        + "wednesday2 BOOLEAN NOT NULL, \n"
+        + "wednesday3 BOOLEAN NOT NULL, \n"
+        + "wednesday4 BOOLEAN NOT NULL, \n"
+        + "thursday1 BOOLEAN NOT NULL, \n"
+        + "thursday2 BOOLEAN NOT NULL, \n"
+        + "thursday3 BOOLEAN NOT NULL, \n"
+        + "thursday4 BOOLEAN NOT NULL, \n"
+        + "friday1 BOOLEAN NOT NULL, \n"
+        + "friday2 BOOLEAN NOT NULL, \n"
+        + "friday3 BOOLEAN NOT NULL, \n"
+        + "friday4 BOOLEAN NOT NULL, \n"
+        + "saturday1 BOOLEAN NOT NULL, \n"
+        + "saturday2 BOOLEAN NOT NULL, \n"
+        + "saturday3 BOOLEAN NOT NULL, \n"
+        + "saturday4 BOOLEAN NOT NULL, \n"
+        + "sunday1 BOOLEAN NOT NULL, \n"
+        + "sunday2 BOOLEAN NOT NULL, \n"
+        + "sunday3 BOOLEAN NOT NULL, \n"
+        + "sunday4 BOOLEAN NOT NULL, \n"
+        + "PRIMARY KEY (timeslotId), \n"
+        + "FOREIGN KEY (doctorId) REFERENCES " + TableName.doctor + "(doctorId)"
+        + ");";
+
+        String incrementQuery = "ALTER TABLE " + TableName.timeslot + " AUTO_INCREMENT = 1001";
+
+        try {
+            Statement statement = connection.createStatement();
+            statement.addBatch(createQuery);
+            statement.addBatch(incrementQuery);
+            statement.executeBatch();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            }
+        }
+    }
+private void createAppointmentTableIfNeeded() {
+    if (!doesTableExist(TableName.appointment)) {
+        String createQuery = "CREATE TABLE " + TableName.appointment + " (\n"
+                + "appointmentId INT NOT NULL AUTO_INCREMENT, \n"
+                + "dateCreated DATE NOT NULL, \n"
+                + "patientId INT NOT NULL, \n"  // Foreign key reference to the Patient table
+                + "timeslotId INT NOT NULL, \n" // Foreign key reference to the Timeslot table
+                + "doctorId INT NOT NULL, \n"   // Foreign key reference to the Doctor table
+                + "PRIMARY KEY (appointmentId) \n" // Removed the extra comma here
+                + ");";
+
+        String incrementQuery = "ALTER TABLE " + TableName.appointment + " AUTO_INCREMENT = 10";
+
+        try {
+            Statement statement = connection.createStatement();
+            statement.addBatch(createQuery);
+            statement.addBatch(incrementQuery);
+            statement.executeBatch();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+
+
+
+    public List<String> getAllPatientNames() {
+        List<String> patientNames = new ArrayList<>();
+
+        try {
+            String query = "SELECT fName, lName FROM " + TableName.patient;
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                String fullName = resultSet.getString("fName") + " " + resultSet.getString("lName");
+                patientNames.add(fullName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return patientNames;
+    }
+
+    public List<String> getAllDoctorNames() {
+        List<String> doctorNames = new ArrayList<>();
+
+        try {
+            String query = "SELECT name FROM " + TableName.doctor;
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                doctorNames.add(name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return doctorNames;
+    }
+
+    
+
+    
 }

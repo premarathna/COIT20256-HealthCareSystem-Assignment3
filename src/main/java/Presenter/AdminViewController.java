@@ -70,6 +70,13 @@ public class AdminViewController implements Initializable {
 
     @FXML
     private void onClickMakeAppoinment(ActionEvent event) {
+        try {
+            // Attempt to navigate to the "CreateAppointment" view
+            App.setRoot("CreateAppointment");
+        } catch (IOException ex) {
+            // Handle any IOException that may occur during the navigation
+            System.out.println("Error while navigating to CreateAppointment: " + ex.getMessage());
+        }
     }
 
     @FXML
