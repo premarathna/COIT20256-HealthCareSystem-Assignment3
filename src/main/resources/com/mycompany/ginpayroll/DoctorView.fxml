@@ -18,12 +18,17 @@
                         <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="viewPatientBtn" layoutX="206.0" layoutY="252.0" mnemonicParsing="false" onAction="#onClickViewPatient" prefHeight="92.0" prefWidth="151.0" text="View Patient">
+                  <Button fx:id="viewPatientBtn" layoutX="182.0" layoutY="252.0" mnemonicParsing="false" onAction="#onClickViewPatient" prefHeight="92.0" prefWidth="151.0" text="View Patient">
                      <font>
                         <Font name="Arial Bold" size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="medicalHistoryBtn" layoutX="502.0" layoutY="252.0" mnemonicParsing="false" onAction="#onViewMedicalHistoryTapped" prefHeight="92.0" prefWidth="154.0" text="View Medical History">
+                  <Button fx:id="medicalHistoryBtn" layoutX="382.0" layoutY="252.0" mnemonicParsing="false" onAction="#onViewMedicalHistoryTapped" prefHeight="92.0" prefWidth="154.0" text="View Medical History">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="changeAvailabilityBtn" layoutX="582.0" layoutY="252.0" mnemonicParsing="false" onAction="#onChangeAvailability" prefHeight="92.0" prefWidth="154.0" text="Change Availability">
                      <font>
                         <Font name="Arial Bold" size="13.0" />
                      </font>
