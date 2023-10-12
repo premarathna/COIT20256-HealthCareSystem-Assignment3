@@ -48,10 +48,15 @@ public class DoctorViewController implements Initializable {
 
     @FXML
     private void onViewMedicalHistoryTapped(ActionEvent event) {
+            try{
+                App.setRoot("HealthRecord");
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
     }
     @FXML
     private void onChangeAvailability(ActionEvent event) {
-                try{
+            try{
                 App.setRoot("ChangeAvailability");
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
