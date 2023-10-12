@@ -42,10 +42,10 @@
             <ComboBox fx:id="DoctorComboBox" layoutX="121.0" layoutY="197.0" prefHeight="31.0" prefWidth="133.0" promptText="Select Doctor" />
             <ComboBox fx:id="PatientcomboBox" layoutX="121.0" layoutY="136.0" prefHeight="31.0" prefWidth="126.0" promptText="Select Patient" />
             <Text fx:id="message" layoutX="43.0" layoutY="479.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="528.7998657226562" />
-            <TextArea fx:id="availabilirt" layoutX="267.0" layoutY="138.0" prefHeight="318.0" prefWidth="182.0" style="-fx-background-color: #4B67A2;">
+            <TextArea fx:id="availabilirt" layoutX="267.0" layoutY="138.0" prefHeight="318.0" prefWidth="182.0" >
             <style>-fx-text-fill: green; -fx-background-color: #E5E6E6;</style>
         </TextArea>
-            <TextArea fx:id="unavailability" layoutX="449.0" layoutY="138.0" prefHeight="318.0" prefWidth="182.0" style="-fx-background-color: #4B67A2;">
+            <TextArea fx:id="unavailability" layoutX="449.0" layoutY="138.0" prefHeight="318.0" prefWidth="182.0">
             <style>
                 -fx-text-fill: red;
             </style>
