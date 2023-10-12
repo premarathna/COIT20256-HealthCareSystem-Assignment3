@@ -131,7 +131,7 @@ public class FinancialReportViewController implements Initializable {
                             System.out.println("Get details from doctor");
 
                             if (rs3.next() & rs4.next()) {
-                                pst = con.getConnection().prepareStatement("insert into invoice_report(invoiceId,date,time,dateCreated,appoinmentId,doctorName,patientFName,patientLName)values(?,?,?,?,?,?,?,?)");
+                                pst = con.getConnection().prepareStatement("insert into invoice_report(invoiceId,date,time,dateCreated,appoinmentId,doctorName,patientFName,patientLName,payment,grossTotal,netTotal,discountedTotal)values(?,?,?,?,?,?,?,?,?,?,?,?)");
                                 pst.setInt(1, rs1.getInt("invoiceId"));
                                 pst.setString(2, rs1.getString("date"));
                                 pst.setString(3, rs1.getString("time"));
@@ -140,6 +140,10 @@ public class FinancialReportViewController implements Initializable {
                                 pst.setString(6, rs4.getString("name"));
                                 pst.setString(7, rs3.getString("fName"));
                                 pst.setString(8, rs3.getString("lName"));
+                                pst.setFloat(9, rs1.getFloat("payment"));
+                                pst.setString(10, rs1.getString("grossTotal"));
+                                pst.setString(11, rs1.getString("netTotal"));
+                                pst.setString(12, rs1.getString("discountedTotal"));
                                 pst.executeUpdate();
                             }
                         }
@@ -147,7 +151,7 @@ public class FinancialReportViewController implements Initializable {
 
                     System.out.println("Insert successfully to invoice_report");
 
-                    JasperDesign jdesign = JRXmlLoader.load("C:\\Users\\user\\Desktop\\CQU\\COIT20256-HealthCareSystem-Assignment3\\src\\main\\resources\\com\\mycompany\\ginpayroll\\InvoiceReport.jrxml");
+                    JasperDesign jdesign = JRXmlLoader.load("C:\\Users\\user\\Desktop\\CQU\\COIT20256-HealthCareSystem-Assignment3\\src\\main\\resources\\com\\mycompany\\ginpayroll\\FinancialReport.jrxml");
                     String query = "select * from invoice_report";//
                     JRDesignQuery updateQuery = new JRDesignQuery();
                     updateQuery.setText(query);
