@@ -59,7 +59,7 @@
 					<textElement>
 						<font size="22" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Appoinment Details Report]]></text>
+					<text><![CDATA[Appointment Details Report]]></text>
 				</staticText>
 			</frame>
 			<frame>

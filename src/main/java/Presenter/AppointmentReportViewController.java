@@ -62,6 +62,11 @@ public class AppointmentReportViewController implements Initializable {
 
     @FXML
     private void backToHome(ActionEvent event) {
+        try {
+            App.setRoot("AdminView");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @FXML
