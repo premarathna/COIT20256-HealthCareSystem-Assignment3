@@ -4,13 +4,14 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenter.CreateAppointmentController">
    <children>
-      <AnchorPane layoutX="272.0" layoutY="-7.0" prefHeight="550.0" prefWidth="576.0">
+      <AnchorPane layoutX="278.0" layoutY="-1.0" prefHeight="550.0" prefWidth="576.0">
          <children>
             <Label layoutX="195.0" layoutY="84.0" text="Create Appointment Forum" textFill="#0f1357">
                <font>
@@ -22,10 +23,10 @@
                   <Font name="Arial Bold" size="14.0" />
                </font>
             </Button>
-            <Label layoutX="43.0" layoutY="158.0" text="Patiet name" />
-            <Label layoutX="43.0" layoutY="210.0" text="Doctor" />
-            <Label layoutX="43.0" layoutY="264.0" text="Appintment date" />
-            <Label layoutX="43.0" layoutY="324.0" text="Appointment Time" />
+            <Label layoutX="22.0" layoutY="152.0" text="Patiet name" />
+            <Label layoutX="22.0" layoutY="204.0" text="Doctor" />
+            <Label layoutX="22.0" layoutY="258.0" text="Appintment date" />
+            <Label layoutX="22.0" layoutY="318.0" text="Appointment Time" />
             <Button fx:id="backToHomeBtn" layoutX="33.0" layoutY="14.0" mnemonicParsing="false" onAction="#didClickBackToHome" prefHeight="41.0" prefWidth="169.0" style="-fx-background-color: #0a0d61;" text="Back to Home" textFill="#e6e5eb">
                <font>
                   <Font name="Arial Bold" size="14.0" />
@@ -36,11 +37,21 @@
                   <Font name="Arial Bold" size="14.0" />
                </font>
             </Button>
-            <ComboBox fx:id="DateComboBox" layoutX="203.0" layoutY="266.0" prefHeight="31.0" prefWidth="207.0" promptText="Select Date" />
-            <ListView fx:id="timeListView" layoutX="208.0" layoutY="316.0" prefHeight="96.0" prefWidth="208.0" />
-            <ComboBox fx:id="DoctorComboBox" layoutX="203.0" layoutY="212.0" prefHeight="31.0" prefWidth="207.0" promptText="Select Doctor" />
-            <ComboBox fx:id="PatientcomboBox" layoutX="203.0" layoutY="151.0" prefHeight="31.0" prefWidth="207.0" promptText="Select Patient" />
-            <Text fx:id="message" layoutX="33.0" layoutY="445.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="528.7998657226562" />
+            <ComboBox fx:id="DateComboBox" layoutX="121.0" layoutY="251.0" prefHeight="31.0" prefWidth="134.0" promptText="Select Date" />
+            <ListView fx:id="timeListView" layoutX="126.0" layoutY="301.0" prefHeight="96.0" prefWidth="134.0" />
+            <ComboBox fx:id="DoctorComboBox" layoutX="121.0" layoutY="197.0" prefHeight="31.0" prefWidth="133.0" promptText="Select Doctor" />
+            <ComboBox fx:id="PatientcomboBox" layoutX="121.0" layoutY="136.0" prefHeight="31.0" prefWidth="126.0" promptText="Select Patient" />
+            <Text fx:id="message" layoutX="43.0" layoutY="479.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="528.7998657226562" />
+            <TextArea fx:id="availabilirt" layoutX="267.0" layoutY="138.0" prefHeight="318.0" prefWidth="182.0" style="-fx-background-color: #4B67A2;">
+            <style>-fx-text-fill: green; -fx-background-color: #E5E6E6;</style>
+        </TextArea>
+            <TextArea fx:id="unavailability" layoutX="449.0" layoutY="138.0" prefHeight="318.0" prefWidth="182.0" style="-fx-background-color: #4B67A2;">
+            <style>
+                -fx-text-fill: red;
+            </style>
+        </TextArea>
+            <Label layoutX="316.0" layoutY="118.0" text="Doctor availability" />
+            <Label layoutX="492.0" layoutY="118.0" text="Doctor unvailability" />
          </children>
       </AnchorPane>
       <AnchorPane layoutY="-7.0" prefHeight="563.0" prefWidth="291.0" style="-fx-background-color: #4B67A2;">

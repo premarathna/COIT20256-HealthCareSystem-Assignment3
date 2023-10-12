@@ -17,7 +17,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,6 +30,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import model.Appointment;
@@ -56,6 +60,10 @@ public class CreateAppointmentController implements Initializable {
         private DbConnectionManager dbConnectionManager;
     @FXML
     private Text message;
+    @FXML
+    private TextArea availabilirt;
+    @FXML
+    private TextArea unavailability;
     /**
      * 
      * Initializes the controller class.
@@ -88,6 +96,16 @@ public class CreateAppointmentController implements Initializable {
         PatientcomboBox.getItems().addAll(patientNames);
         DoctorComboBox.getItems().addAll(doctorNames);
         proceedBillingBtn.setVisible(false);
+            // Add an event handler to the DoctorComboBox
+        DoctorComboBox.setOnAction(event -> {
+            updateAvailableTimeSlots();
+            //updateUnavailability();
+        });
+
+        // Call the updateAvailableTimeSlots method initially
+        updateAvailableTimeSlots();
+        //updateUnavailability();
+
     }    
     
     // Method to create the time range options
@@ -117,11 +135,39 @@ public class CreateAppointmentController implements Initializable {
         String selectedDoctorName = DoctorComboBox.getValue();
         String selectedPatientName = PatientcomboBox.getValue();
 
+        String selectedDay = DateComboBox.getValue();
+        String selectedTime = timeListView.getSelectionModel().getSelectedItem();
         // Fetch the corresponding doctorId and patientId based on their names
         int doctorId = getDoctorIdByName(selectedDoctorName);
         int patientId = getPatientIdByName(selectedPatientName);
 
-        // Fetch the selected timeslotId (you need to implement this method)
+        // Determine which column to update based on the selected day and time
+        String columnToUpdate = "";
+
+        // Create a mapping of day names to their corresponding column names
+        Map<String, String> dayColumnMap = new HashMap<>();
+        dayColumnMap.put("Sunday", "sunday");
+        dayColumnMap.put("Monday", "monday");
+        dayColumnMap.put("Tuesday", "tuesday");
+        dayColumnMap.put("Wednesday", "wednesday");
+        dayColumnMap.put("Thursday", "thursday");
+        dayColumnMap.put("Friday", "friday");
+        dayColumnMap.put("Saturday", "saturday");
+
+        if (dayColumnMap.containsKey(selectedDay)) {
+            String dayColumnName = dayColumnMap.get(selectedDay);
+
+            if (selectedTime.equals("4:00 PM - 4:30 PM")) {
+                columnToUpdate = dayColumnName + "1";
+            } else if (selectedTime.equals("4:30 PM - 5:00 PM")) {
+                columnToUpdate = dayColumnName + "2";
+            } else if (selectedTime.equals("5:00 PM - 5:30 PM")) {
+                columnToUpdate = dayColumnName + "3";
+            } else if (selectedTime.equals("5:30 PM - 6:00 PM")) {
+                columnToUpdate = dayColumnName + "4";
+            }
+        }        
+// Fetch the selected timeslotId (you need to implement this method)
 
         int timeslotId = getTimeslotId(doctorId); 
             // Get the current LocalDate
@@ -151,6 +197,18 @@ public class CreateAppointmentController implements Initializable {
 
             // Hide the make appointment button
             createAppointmentBtn.setVisible(false);
+            if (!columnToUpdate.isEmpty()) {
+                // Update the timeslot table to mark the timeslot as false
+                updateTimeslot(selectedDoctorName, columnToUpdate);
+            }
+                        // Get and display available time slots
+            List<String> availableTimeSlots = getAvailableTimeSlotsForDoctor(selectedDoctorName);
+            StringBuilder availableTimeSlotsText = new StringBuilder("Available Time Slots:\n");
+            for (String slot : availableTimeSlots) {
+                availableTimeSlotsText.append(slot).append("\n");
+            }
+            updateUnavailability();
+    availabilirt.setText(availableTimeSlotsText.toString());
             } else {
                 // Handle error
                 System.out.println("Failed to create an appointment.");
@@ -162,7 +220,20 @@ public class CreateAppointmentController implements Initializable {
     }
 
 
+private void updateTimeslot(String doctorName, String columnToUpdate) {
+    try {
+        Connection connection = dbConnectionManager.getConnection();
+        String query = "UPDATE timeslot SET " + columnToUpdate + " = 0 WHERE doctorId = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        int doctorId = getDoctorIdByName(doctorName);
+        preparedStatement.setInt(1, doctorId);
 
+        preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+     
 private int getPatientIdByName(String patientName) {
     try {
         Connection connection = dbConnectionManager.getConnection();
@@ -222,7 +293,130 @@ private int getDoctorIdByName(String doctorName) {
         // If no match is found, return -1 or another appropriate value
         return -1;
     }
-        @FXML
+        private void updateAvailableTimeSlots() {
+        String selectedDoctorName = DoctorComboBox.getValue();
+
+        if (selectedDoctorName != null) {
+            List<String> availableTimeSlots = getAvailableTimeSlotsForDoctor(selectedDoctorName);
+            String availabilityText = String.join("\n", availableTimeSlots);
+            availabilirt.setText(availabilityText);
+            List<String> unavailableDays = getUnavailableDaysForDoctor(selectedDoctorName);
+            String unavailabilityText = String.join("\n", unavailableDays);
+            unavailability.setText(unavailabilityText);
+        } else {
+            availabilirt.clear();
+            unavailability.clear();
+        }
+    }
+    private void updateUnavailability() {
+        String selectedDoctorName = DoctorComboBox.getValue();
+
+        if (selectedDoctorName != null) {
+            List<String> unavailableDays = getUnavailableDaysForDoctor(selectedDoctorName);
+            String unavailabilityText = String.join("\n", unavailableDays);
+            unavailability.setText(unavailabilityText);
+        } else {
+            unavailability.clear();
+        }
+    }
+        private List<String> getAvailableTimeSlotsForDoctor(String doctorName) {
+        List<String> availableTimeSlots = new ArrayList();
+
+        try {
+            Connection connection = dbConnectionManager.getConnection();
+            String query = "SELECT * FROM timeslot WHERE doctorId = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            int doctorId = getDoctorIdByName(doctorName);
+
+            if (doctorId != -1) {
+                preparedStatement.setInt(1, doctorId);
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                if (resultSet.next()) {
+                    Map<String, String> dayColumnMap = new HashMap<>();
+                    dayColumnMap.put("Sunday", "sunday");
+                    dayColumnMap.put("Monday", "monday");
+                    dayColumnMap.put("Tuesday", "tuesday");
+                    dayColumnMap.put("Wednesday", "wednesday");
+                    dayColumnMap.put("Thursday", "thursday");
+                    dayColumnMap.put("Friday", "friday");
+                    dayColumnMap.put("Saturday", "saturday");
+
+                    for (String day : dayColumnMap.keySet()) {
+                        String dayColumnName = dayColumnMap.get(day);
+                        for (int i = 1; i <= 4; i++) {
+                            String columnName = dayColumnName + i;
+                            if (resultSet.getBoolean(columnName)) {
+                                availableTimeSlots.add(day + " " + getTimeSlot(i));
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return availableTimeSlots;
+    }
+private List<String> getUnavailableDaysForDoctor(String doctorName) {
+    List<String> unavailableDays = new ArrayList<>();
+
+        try {
+            Connection connection = dbConnectionManager.getConnection();
+            String query = "SELECT * FROM timeslot WHERE doctorId = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            int doctorId = getDoctorIdByName(doctorName);
+
+            if (doctorId != -1) {
+                preparedStatement.setInt(1, doctorId);
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                if (resultSet.next()) {
+                    Map<String, String> dayColumnMap = new HashMap<>();
+                    dayColumnMap.put("Sunday", "sunday");
+                    dayColumnMap.put("Monday", "monday");
+                    dayColumnMap.put("Tuesday", "tuesday");
+                    dayColumnMap.put("Wednesday", "wednesday");
+                    dayColumnMap.put("Thursday", "thursday");
+                    dayColumnMap.put("Friday", "friday");
+                    dayColumnMap.put("Saturday", "saturday");
+
+                    for (String day : dayColumnMap.keySet()) {
+                        String dayColumnName = dayColumnMap.get(day);
+                        for (int i = 1; i <= 4; i++) {
+                            String columnName = dayColumnName + i;
+                            if (!resultSet.getBoolean(columnName)) {
+                                unavailableDays.add(day + " " + getTimeSlot(i));
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return unavailableDays;
+}
+
+
+    private String getTimeSlot(int slotNumber) {
+        switch (slotNumber) {
+            case 1:
+                return "4:00 PM - 4:30 PM";
+            case 2:
+                return "4:30 PM - 5:00 PM";
+            case 3:
+                return "5:00 PM - 5:30 PM";
+            case 4:
+                return "5:30 PM - 6:00 PM";
+            default:
+                return "";
+        }
+    }     @FXML
     private void didClickBackToHome(ActionEvent event) {
         try {
             // Set the root view to the "AdminView" (Home) when the button is clicked.
