@@ -4,7 +4,6 @@
  */
 package Presenter;
 
-import Utils.UserManager;
 import com.mycompany.ginpayroll.App;
 import java.io.IOException;
 import java.net.URL;
@@ -14,53 +13,54 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
-import model.User;
+
 /**
  * FXML Controller class
  *
- * @author Chamali
+ * @author N A A S Senanayake
  */
-public class EmployeViewController implements Initializable {
+public class ReportViewController implements Initializable {
 
+    @FXML
+    private Button btnPatientReport;
+    @FXML
+    private Button btnAppointmentReport;
+    @FXML
+    private Button btnFinancialReport;
 
-    @FXML
-    private Button timeAddBtn;
-    @FXML
-    private Button infoBtn;
-    @FXML
-    private Button paySlipBtn;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
-    private void onViewEditTapped(ActionEvent event) {
+    private void navigateToPatientReport(ActionEvent event) {
         try {
-            App.setRoot("ViewEditEmployee");
+            App.setRoot("PatientReportView");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     @FXML
-    private void onAddTimeClicked(ActionEvent event) {
+    private void navigateToAppointmentReport(ActionEvent event) {
         try {
-            App.setRoot("AddTime");
+            App.setRoot("AppointmentReportView");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     @FXML
-    private void onViewSlipClicked(ActionEvent event) {
+    private void navigateToFinancialReport(ActionEvent event) {
         try {
-            App.setRoot("ViewPayslip");
+            App.setRoot("FinancialReportView");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
 }

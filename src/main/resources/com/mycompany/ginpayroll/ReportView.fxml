@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="563.0" prefWidth="905.0" style="-fx-background-color: #0a0d61;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="Presenter.ReportViewController">
+<AnchorPane id="AnchorPane" prefHeight="563.0" prefWidth="905.0" style="-fx-background-color: #4B67A2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenter.ReportViewController">
    <children>
       <Label layoutX="259.0" layoutY="68.0" text="Welcome to Healthcare System" textFill="#e1d8d8">
          <font>

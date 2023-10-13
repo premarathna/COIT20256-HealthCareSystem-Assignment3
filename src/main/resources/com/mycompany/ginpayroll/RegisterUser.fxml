@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="563.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenter.RegisterUserController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
@@ -39,7 +38,7 @@
                   </Label>
                   <TextField fx:id="usernameField" layoutX="206.0" layoutY="314.0" prefHeight="33.0" prefWidth="208.0" />
                   <PasswordField fx:id="passwordField" layoutX="206.0" layoutY="372.0" prefHeight="33.0" prefWidth="208.0" />
-                  <Button fx:id="registerBtn" layoutX="227.0" layoutY="489.0" mnemonicParsing="false" onAction="#didClickLRegister" prefHeight="41.0" prefWidth="169.0" style="-fx-background-color: #0a0d61;" text="Register" textFill="#e6e5eb">
+                  <Button fx:id="registerBtn" layoutX="207.0" layoutY="491.0" mnemonicParsing="false" onAction="#didClickLRegister" prefHeight="41.0" prefWidth="208.0" style="-fx-background-color: #0a0d61;" text="Register" textFill="#e6e5eb">
                      <font>
                         <Font name="Arial Bold" size="14.0" />
                      </font>
@@ -53,8 +52,13 @@
                   <Label layoutX="43.0" layoutY="380.0" text="Password" />
                   <TextField fx:id="nameField" layoutX="203.0" layoutY="151.0" prefHeight="33.0" prefWidth="208.0" />
                   <Label layoutX="46.0" layoutY="434.0" text="Role" />
-                  <ComboBox fx:id="roleComboBox" layoutX="206.0" layoutY="430.0" prefHeight="31.0" prefWidth="207.0" >
+                  <ComboBox fx:id="roleComboBox" layoutX="206.0" layoutY="430.0" prefHeight="31.0" prefWidth="207.0">
                   </ComboBox>
+                  <Button fx:id="backToLoginBtn" layoutX="15.0" layoutY="14.0" mnemonicParsing="false" onAction="#didClickBackToLogin" prefHeight="41.0" prefWidth="169.0" style="-fx-background-color: #0a0d61;" text="Back to Login" textFill="#e6e5eb">
+                     <font>
+                        <Font name="Arial Bold" size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
          </center>

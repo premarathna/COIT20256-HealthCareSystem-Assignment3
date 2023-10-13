@@ -18,35 +18,41 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import model.Patient;
+import model.User;
 /**
  * FXML Controller class
  *
  * @author Chamali
  */
-public class AddPatientController implements Initializable {
+public class ViewEditPatientController implements Initializable {
 
 
     @FXML
-    private TextField fnameField;
-    @FXML
-    private DatePicker dobField;
+    private DatePicker dobPicker;
     @FXML
     private TextArea addressField;
     @FXML
-    private TextField mobileNoField;
-    @FXML
-    private TextField genderField;
-    @FXML
-    private Button backBtn;
-    @FXML
-    private Button saveBtn;
+    private TextField mobileField;
     @FXML
     private TextField emailField;
     @FXML
-    private TextField insuaranceIdField;
+    private TextField genderField;
+    @FXML
+    private Button updateButton;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private TextField fnameField;
+    @FXML
+    private TextField insuranceIdField;
+    @FXML
+    private TextField patientIDField;
     @FXML
     private TextField lnameField;
+    
+    private Patient patient;
     /**
      * Initializes the controller class.
      */
@@ -56,8 +62,8 @@ public class AddPatientController implements Initializable {
     }    
     
     @FXML
-    private void onClickBack(ActionEvent event) {
-         try {
+    private void onBackTapped(ActionEvent event) {
+        try {
                 App.setRoot("AdminView");
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
@@ -65,33 +71,86 @@ public class AddPatientController implements Initializable {
     }
 
     @FXML
-    private void onClickSave(ActionEvent event) {
-         if (validateUserInput()) {
+    private void onClickUpdate(ActionEvent event) {
+        this.patient.fName = fnameField.getText();
+        this.patient.lName = lnameField.getText();
+        this.patient.address = addressField.getText();
+        this.patient.dob = Date.valueOf(dobPicker.getValue());
+        this.patient.mobile = mobileField.getText();
+        this.patient.email = emailField.getText();
+        this.patient.insuaranceId = insuranceIdField.getText();
+       
+        if (validateUserInput()) {
             Patient patientModel = getPatientModel();
-            boolean success = patientModel.insertPatient();
-            if(success) {
-                Helper.showAlert("Success", "Patient added succesfully!");
-                clearUserInput();
+            boolean success = patientModel.updatePatient();
+            System.out.print("=============");
+        if (success) {
+            Helper.showAlert("Success", "Patient updated succesfully!");
+        } else {
+           Helper.showAlert("Failure", "Patient upadte failed. Try Again!");
+        }
+        }
+    }
+
+    @FXML
+    private void onTextChanged(KeyEvent event) {
+        String text = searchField.getText();
+        // Search only if input is not empty AND
+        // is a number AND number > 1000 (Since patient IDs start from 1000)
+        if(!text.isEmpty() 
+                && Helper.onlyContainsNumbers(text)
+                && Integer.parseInt(text) > 1000) {
+            
+            Patient patient = Patient.fetchPatientBy(Integer.parseInt(text));
+            if (patient != null) {
+                // Employee Found
+                this.patient = patient;
+                populateFields();
             } else {
-                Helper.showAlert("Error", "Failed to add Patient");
+                resetFields();
             }
         } else {
-            System.out.println("Validation Failed");
+            resetFields();
         }
     }
     
-    private boolean validateUserInput() {
+    private void populateFields() {
+        patientIDField.setText(Integer.toString(patient.patientId));
+        fnameField.setText(patient.fName);
+        lnameField.setText(patient.lName);
+        dobPicker.setValue(patient.dob.toLocalDate());
+        addressField.setText(patient.address);
+        genderField.setText(patient.gender);
+        mobileField.setText(patient.mobile);
+        emailField.setText(patient.email);
+        insuranceIdField.setText(patient.insuaranceId);
+    }
+    
+      private void resetFields() {
+        patientIDField.setText(null);
+        emailField.setText(null);
+        fnameField.setText(null);
+        dobPicker.setValue(null);
+        addressField.setText(null);
+        mobileField.setText(null);
+        emailField.setText(null);
+        insuranceIdField.setText(null);
+        lnameField.setText(null);
+        genderField.setText(null);
+    }
+      
+     private boolean validateUserInput() {
         if(allFieldsHaveValues()) {
             // Email Validation
             if(Helper.isEmailValid(emailField.getText())) {
                 // Mobile number validation
-                if(Helper.isMobileValid(mobileNoField.getText())) {
+                if(Helper.isMobileValid(mobileField.getText())) {
                     //Name Validation
                     if(Helper.islNameValid(lnameField.getText())) {
                         // Account number valdation
                         if(Helper.isfNameValid(fnameField.getText())) {
                             // Password Validation
-                            if(Helper.isInsuaranceIdValid(insuaranceIdField.getText())) {
+                            if(Helper.isInsuaranceIdValid(insuranceIdField.getText())) {
                                 return true;
                             } else {
                                 Helper.showAlert("Invalid", "Insuarnace number Invaid, enter valida Insuarnace number");
@@ -118,20 +177,8 @@ public class AddPatientController implements Initializable {
             return false;
         }
     }
-    
-     private void clearUserInput() {
-        fnameField.setText(null);
-        lnameField.setText(null);
-        dobField.setValue(null);
-        addressField.setText(null);
-        mobileNoField.setText(null);
-        genderField.setText(null);
-        emailField.setText(null);
-        insuaranceIdField.setText(null);
-        
-    }
-    
-    private boolean allFieldsHaveValues() {
+     
+     private boolean allFieldsHaveValues() {
         boolean isValid = true;
         
         if(fnameField.getText().isBlank()) {
@@ -143,7 +190,7 @@ public class AddPatientController implements Initializable {
         if(addressField.getText().isBlank()) {
             isValid = false;
         }
-        if(mobileNoField.getText().isBlank()) {
+        if(mobileField.getText().isBlank()) {
             isValid = false;
         }
         if(genderField.getText().isBlank()) {
@@ -153,30 +200,27 @@ public class AddPatientController implements Initializable {
         if(emailField.getText().isBlank()) {
             isValid = false;
         }
-        if(insuaranceIdField.getText().isBlank()) {
+        if(insuranceIdField.getText().isBlank()) {
             isValid = false;
         }
-        if(dobField.getValue() == null) {
+        if(dobPicker.getValue() == null) {
             isValid = false;
         }
         return isValid;
     }
-    
-        
-    private Patient getPatientModel() {
-        
+     
+    private Patient getPatientModel() { 
         return new Patient(
             0,
             fnameField.getText(), 
             lnameField.getText(), 
-            addressField.getText(), 
-            genderField.getText(),
-            mobileNoField.getText(), 
-            emailField.getText(),  
-            Date.valueOf(dobField.getValue()),
-            insuaranceIdField.getText()
+            addressField.getText(),
+            genderField.getText(), 
+            mobileField.getText(), 
+            emailField.getText(), 
+            Date.valueOf(dobPicker.getValue()),
+            insuranceIdField.getText()
         );
     }
-    
 
 }
