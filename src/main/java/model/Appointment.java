@@ -7,12 +7,11 @@ package model;
 import Utils.DbConnectionManager;
 import Utils.TableName;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Appointment {
 
@@ -21,19 +20,36 @@ public class Appointment {
     public int patientId;
     public int timeslotId;
     public int doctorId;
+    public BigDecimal amountToCharge;
+
+
+    public Appointment( int patientId, Date dateCreated, int timeslotId, int doctorId, int appointmentId,BigDecimal amountToCharge) {
+   
+        this.dateCreated = dateCreated;
+        this.patientId = patientId;
+        this.timeslotId = timeslotId;
+        this.doctorId = doctorId;
+        this.amountToCharge = amountToCharge;
+    }
 
     public Appointment( int patientId, Date dateCreated, int timeslotId, int doctorId, int appointmentId) {
-   
+
         this.dateCreated = dateCreated;
         this.patientId = patientId;
         this.timeslotId = timeslotId;
         this.doctorId = doctorId;
     }
 
+    public Appointment(int appointmentId, int patientId, BigDecimal amountToCharge) {
+        this.appointmentId = appointmentId;
+        this.patientId = patientId;
+        this.amountToCharge = amountToCharge;
+    }
+
     public boolean insertAppointment() {
         String insertQuery = "INSERT INTO " + TableName.appointment + "(\n"
-                + "dateCreated, patientId, timeslotId, doctorId, appointmentId)\n"
-                + "VALUES(?, ?, ?, ?,?)";
+                + "dateCreated, patientId, timeslotId, doctorId, appointmentId,amount_to_charge)\n"
+                + "VALUES(?, ?, ?, ?,?,?)";
 
         try {
             Connection connection = DbConnectionManager.shared().getConnection();
@@ -43,9 +59,10 @@ public class Appointment {
             statement.setInt(3, timeslotId);
             statement.setInt(4, doctorId);
              statement.setInt(5, appointmentId);
+             statement.setBigDecimal(6, new BigDecimal(1000));
             statement.executeUpdate();
             ResultSet results = statement.getGeneratedKeys();
-            
+            System.out.println(appointmentId);
             // You can handle the results and return true if the insertion was successful.
             return true;
         } catch (Exception e) {
@@ -75,7 +92,8 @@ public class Appointment {
                         results.getDate("dateCreated"),
                         results.getInt("patientId"),
                         results.getInt("timeslotId"),
-                        results.getInt("doctorId") // This will be the doctor's userId
+                        results.getInt("doctorId"), // This will be the doctor's userId
+                        results.getBigDecimal("amount_to_charge")
                 );
             }
             return appointment;
@@ -83,6 +101,49 @@ public class Appointment {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static Appointment findAppointmentById(int appointmentId) {
+        System.out.println("find appointment by id = "+appointmentId);
+        Appointment appointment = null;
+        String query = "SELECT * FROM "+TableName.appointment+" WHERE appointmentId = ?";
+
+        try {
+            Connection connection = DbConnectionManager.shared().getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, appointmentId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                appointment = new Appointment(
+                        resultSet.getInt("appointmentId"),
+                        resultSet.getInt("patientId"),
+                        resultSet.getBigDecimal("amount_to_charge")
+                );
+            }
+
+        } catch ( SQLException e) {
+            e.printStackTrace();
+        }
+        return appointment;
+    }
+
+    public static List<Integer> getAppointmentsWithoutInvoice() {
+        String sql = "SELECT appointmentId FROM Appointment " +
+                "LEFT JOIN Invoice ON Appointment.appointmentId = Invoice.appointment_appointmentid " +
+                "WHERE Invoice.appointment_appointmentid IS NULL";
+        List<Integer> appointmentIds = new ArrayList<>();
+        try {
+            Connection connection = DbConnectionManager.shared().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                appointmentIds.add(resultSet.getInt("appointmentId"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appointmentIds;
     }
 
 

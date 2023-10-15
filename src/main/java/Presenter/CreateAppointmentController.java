@@ -25,8 +25,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
@@ -34,7 +37,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import model.Appointment;
+import model.Invoice;
+
+import static com.mycompany.ginpayroll.App.loadFXML;
+
 /**
  * FXML Controller class
  *
@@ -42,6 +50,13 @@ import model.Appointment;
  */
 public class CreateAppointmentController implements Initializable {
 
+    private Stage primaryStage;
+
+
+    // Constructor to inject the primary stage
+/*    public CreateAppointmentController(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }*/
 
     @FXML
     private Button proceedBillingBtn;
@@ -70,6 +85,7 @@ public class CreateAppointmentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.primaryStage = App.primaryStage;
         // Create a list of dates
         ObservableList<String> dates = FXCollections.observableArrayList(
             "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
@@ -429,6 +445,22 @@ private List<String> getUnavailableDaysForDoctor(String doctorName) {
 
     @FXML
   private void didClickProceedBilling(ActionEvent event) {
+
+        List<Integer> appointmentsWithoutInvoice = Appointment.getAppointmentsWithoutInvoice();
+        appointmentsWithoutInvoice.forEach(id -> {
+            Invoice invoice = Invoice.createInvoiceForAppointmentId(id);
+            System.out.println("create invoice for appointment "+id+" success. invoice id = "+invoice.getInvoiceId());
+        });
+
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("Invoice.fxml"));
+            Parent root = loader.load();
+            InvoiceController invoiceController = loader.getController();
+            Scene invoiceScene = new Scene(root);
+            primaryStage.setScene(invoiceScene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
