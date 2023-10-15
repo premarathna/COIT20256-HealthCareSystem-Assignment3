@@ -19,5 +19,7 @@ public class TableName {
     public static String doctor = "Doctor"; // Add the doctor table
     public static String appointment = "Appointment"; // Add the Appointment table
     public static String timeslot = "Timeslot";
+    public static String invoice = "Invoice";
+
 
 }

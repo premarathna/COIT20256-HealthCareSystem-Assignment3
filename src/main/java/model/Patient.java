@@ -6,11 +6,9 @@ package model;
 
 import Utils.DbConnectionManager;
 import Utils.TableName;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import org.apache.commons.lang3.StringUtils;
+
+import java.sql.*;
 
 /**
  *
@@ -41,6 +39,17 @@ public class Patient {
         this.dob = dob;
         this.insuaranceId = insuranceId;
     
+    }
+
+
+    public String getAvailableBName() {
+        if (StringUtils.isNotBlank(fName) && StringUtils.isNotBlank(lName)) {
+            return fName + " " + lName;
+        } else if (StringUtils.isNotBlank(fName)) {
+            return fName;
+        } else {
+            return lName;
+        }
     }
     
     public boolean insertPatient() {
@@ -97,6 +106,34 @@ public class Patient {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static Patient findPatientById(int patientId) {
+        System.out.println("find patient by id "+patientId);
+        Patient patient = null;
+        String query = "SELECT * FROM "+TableName.patient+" WHERE patientId = ?";
+        try {
+            Connection connection = DbConnectionManager.shared().getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, patientId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int patientid = resultSet.getInt("patientId");
+                String fName = resultSet.getString("fName");
+                String lName = resultSet.getString("lName");
+                String address = resultSet.getString("address");
+                String mobile = resultSet.getString("mobile");
+                String email = resultSet.getString("email");
+                String gender = resultSet.getString("gender");
+                String insuranceID = resultSet.getString("insuaranceID");
+                Date dob = resultSet.getDate("dob");
+
+                patient = new Patient(patientid,fName,lName,address,gender,mobile,email,dob,insuranceID);
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return patient;
     }
     
     public boolean updatePatient() {

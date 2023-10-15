@@ -27,7 +27,7 @@ public class DbConnectionManager {
 
     private String dbName = "hospital_db";
     private String user = "root";
-    private String password = "123123";//asdf1234
+    private String password = "Devsh@456";//asdf1234
     private String url = "jdbc:mysql://localhost";
 
     public DbConnectionManager() {
@@ -68,7 +68,7 @@ public class DbConnectionManager {
         createDoctorTableIfNeeded();
         createAppointmentTableIfNeeded();
         createTimeslotTableIfNeeded();
-
+        createInvoiceTableIfNeed();
     }
 
     public Connection getConnection() {
@@ -308,6 +308,7 @@ private void createAppointmentTableIfNeeded() {
         String createQuery = "CREATE TABLE " + TableName.appointment + " (\n"
                 + "appointmentId INT NOT NULL AUTO_INCREMENT, \n"
                 + "dateCreated DATE NOT NULL, \n"
+                + "`amount_to_charge` DECIMAL(10, 2) NULL,"
                 + "patientId INT NOT NULL, \n"  // Foreign key reference to the Patient table
                 + "timeslotId INT NOT NULL, \n" // Foreign key reference to the Timeslot table
                 + "doctorId INT NOT NULL, \n"   // Foreign key reference to the Doctor table
@@ -327,6 +328,43 @@ private void createAppointmentTableIfNeeded() {
     }
 }
 
+
+    private void createInvoiceTableIfNeed(){
+        if (!doesTableExist(TableName.invoice)){
+            String createTableSQL =
+                    "CREATE TABLE IF NOT EXISTS `" + dbName +"`.`" + TableName.invoice + "` (" +
+                            "  `invoiceid` INT NOT NULL AUTO_INCREMENT," +
+                            "  `createdat` DATETIME NOT NULL," +
+                            "  `updatedat` DATETIME NULL," +
+                            "  `gross_total` DECIMAL(10, 2) NULL," +
+                            "  `discounted_total` DECIMAL(10, 2) NULL," +
+                            "  `total` DECIMAL(10, 2) NULL," +
+                            "  `paidat` DATETIME NULL," +
+                            "  `paidamount` DECIMAL(10, 2) NULL," +
+                            "  `ispaid` TINYINT NULL," +
+                            "  `appointment_appointmentid` INT NOT NULL," +
+                            "  PRIMARY KEY (`invoiceid`)," +
+                            "  INDEX `fk_invoice_appointment1_idx` (`appointment_appointmentid` ASC) VISIBLE," +
+                            "  CONSTRAINT `fk_invoice_appointment1`" +
+                            "    FOREIGN KEY (`appointment_appointmentid`)" +
+                            "    REFERENCES `"+dbName+"`.`"+TableName.appointment+"` (`appointmentId`)" +
+                            "    ON DELETE NO ACTION" +
+                            "    ON UPDATE NO ACTION)";
+
+            String incrementQuery = "ALTER TABLE " + TableName.invoice + " AUTO_INCREMENT = 1001";
+
+            try {
+                Statement statement = connection.createStatement();
+                statement.addBatch(createTableSQL);
+                statement.addBatch(incrementQuery);
+                statement.executeBatch();
+
+                System.out.println("Table '" + TableName.appointment  + "' created successfully in database '" + dbName + "'.");
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+    }
 
 
     public List<String> getAllPatientNames() {
