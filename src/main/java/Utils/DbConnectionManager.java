@@ -192,13 +192,13 @@ public class DbConnectionManager {
 
             String incrementQuery = "ALTER TABLE " + TableName.appoinment_report + " AUTO_INCREMENT = 3001";
 
-            try {
-                Statement statement = connection.createStatement();
-                statement.addBatch(createQuery);
-                statement.addBatch(incrementQuery);
-                //statement.addBatch(fkConstraint);
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+       try {
+            Statement statement = connection.createStatement();
+            statement.addBatch(createQuery);
+            statement.addBatch(incrementQuery);
+            statement.executeBatch();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
             }
         }
     }
@@ -222,6 +222,9 @@ public class DbConnectionManager {
             }
         }
     }
+    
+
+
 
     private void createInvoiceReportTableIfNeeded() {
         if (!doesTableExist(TableName.invoice_report)) {
@@ -235,19 +238,17 @@ public class DbConnectionManager {
                     + "doctorName varchar(255) NOT NULL, \n"
                     + "patientFName varchar(255) NOT NULL, \n"
                     + "patientLName varchar(255) NOT NULL, \n"
-                    + "PRIMARY KEY (appoinmentReportId));";
+                    + "PRIMARY KEY (invoiceReportId));";
 
-            String incrementQuery = "ALTER TABLE " + TableName.invoice_report + " AUTO_INCREMENT = 4001";
+            String incrementQuery = "ALTER TABLE " + TableName.invoice_report + " AUTO_INCREMENT = 2001";
 
-            try {
-                Statement statement = connection.createStatement();
-                statement.addBatch(createQuery);
-                statement.addBatch(incrementQuery);
-                //statement.addBatch(fkConstraint);
-
-                statement.executeBatch();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+       try {
+            Statement statement = connection.createStatement();
+            statement.addBatch(createQuery);
+            statement.addBatch(incrementQuery);
+            statement.executeBatch();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
             }
         }
     }
