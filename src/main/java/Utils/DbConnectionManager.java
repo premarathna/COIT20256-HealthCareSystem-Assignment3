@@ -27,7 +27,7 @@ public class DbConnectionManager {
 
     private String dbName = "hospital_db";
     private String user = "root";
-    private String password = "Devsh@456";//asdf1234
+    private String password = "asdf1234";//asdf1234
     private String url = "jdbc:mysql://localhost";
 
     public DbConnectionManager() {
