@@ -25,7 +25,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
-        scene = new Scene(loadFXML("CreateAppointment"), 905, 568);//Login
+        scene = new Scene(loadFXML("Login"), 905, 568);//Login
 //        scene = new Scene(loadFXML("AdminView"), 905, 568);
         stage.setScene(scene);
         stage.show();
