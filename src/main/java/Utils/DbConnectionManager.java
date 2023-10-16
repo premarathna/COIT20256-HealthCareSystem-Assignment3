@@ -197,15 +197,14 @@ public class DbConnectionManager {
                 statement.addBatch(createQuery);
                 statement.addBatch(incrementQuery);
                 //statement.addBatch(fkConstraint);
-
-                statement.executeBatch();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
+
     
-        private void createDoctorTableIfNeeded() {
+    private void createDoctorTableIfNeeded() {
         if (!doesTableExist(TableName.doctor)) {
             String createQuery = "CREATE TABLE " + TableName.doctor + " (\n"
                     + "doctorId INT NOT NULL AUTO_INCREMENT, \n"
@@ -223,8 +222,6 @@ public class DbConnectionManager {
             }
         }
     }
-    
-
 
     private void createInvoiceReportTableIfNeeded() {
         if (!doesTableExist(TableName.invoice_report)) {
@@ -254,7 +251,6 @@ public class DbConnectionManager {
             }
         }
     }
-
 
     private void createTimeslotTableIfNeeded() {
     if (!doesTableExist(TableName.timeslot)) {
