@@ -222,6 +222,27 @@ public class DbConnectionManager {
             }
         }
     }
+    
+        private void createDoctorTableIfNeeded() {
+        if (!doesTableExist(TableName.doctor)) {
+            String createQuery = "CREATE TABLE " + TableName.doctor + " (\n"
+                    + "doctorId INT NOT NULL AUTO_INCREMENT, \n"
+                    + "userId INT NOT NULL, \n"
+                    + "availability VARCHAR(255) NOT NULL, \n"
+                    + "name VARCHAR(255), \n" // Add the 'name' column
+                    + "PRIMARY KEY (doctorId)"
+                    + ");";
+            try {
+                Statement statement = connection.createStatement();
+                statement.addBatch(createQuery);
+                statement.executeBatch();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+
 
 
     private void createInvoiceReportTableIfNeeded() {
@@ -253,7 +274,6 @@ public class DbConnectionManager {
         }
     }
 
-    
     private void createTimeslotTableIfNeeded() {
     if (!doesTableExist(TableName.timeslot)) {
         String createQuery = "CREATE TABLE " + TableName.timeslot + " (\n"
