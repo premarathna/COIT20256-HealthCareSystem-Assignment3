@@ -98,9 +98,8 @@ public class RegisterUserController implements Initializable {
                     } else {
                         Helper.showAlert("Error", "Failed to add doctor to timeslot table");
                     }
-                } else {
-                    Helper.showAlert("Error", "Failed to add user to Doctor table");
                 }
+            }
             }
                 try {
                         App.setRoot("Login");
@@ -113,7 +112,7 @@ public class RegisterUserController implements Initializable {
         } else {
             System.out.println("Validation Failed");
         }
-    }
+    
     }    
     private boolean validateUserInput() {
         if(allFieldsHaveValues()) {

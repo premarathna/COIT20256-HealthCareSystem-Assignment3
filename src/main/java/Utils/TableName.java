@@ -12,6 +12,8 @@ public class TableName {
     public static String login = "Login";
     public static String patient = "Patient";
     public static String user = "User";
+    public static String appoinment_report = "Appoinment_Report";
+    public static String invoice_report = "Invoice_Report";
     public static String patient_report = "Patient_Report";
     public static String appoinment_report = "Appoinment_Report";
     public static String invoice_report = "Invoice_Report";

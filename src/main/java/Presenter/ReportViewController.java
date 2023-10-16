@@ -66,7 +66,7 @@ public class ReportViewController implements Initializable {
     }
 
     @FXML
-    void navigateToHome(ActionEvent event) {
+    void navigateBackToHome(ActionEvent event) {
         try {
             App.setRoot("AdminView");
         } catch (IOException ex) {
