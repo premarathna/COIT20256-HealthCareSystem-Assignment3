@@ -238,7 +238,7 @@ public class DbConnectionManager {
                     + "doctorName varchar(255) NOT NULL, \n"
                     + "patientFName varchar(255) NOT NULL, \n"
                     + "patientLName varchar(255) NOT NULL, \n"
-                    + "PRIMARY KEY (appoinmentReportId));";
+                    + "PRIMARY KEY (invoiceReportId));";
 
             String incrementQuery = "ALTER TABLE " + TableName.invoice_report + " AUTO_INCREMENT = 2001";
 
