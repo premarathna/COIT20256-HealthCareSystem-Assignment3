@@ -13,7 +13,7 @@
          <left>
             <AnchorPane prefHeight="563.0" prefWidth="905.0" style="-fx-background-color: #4B67A2;" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="188.0" layoutY="71.0" prefHeight="27.0" prefWidth="374.0" text="Welcome to Health Care System" textFill="#e1d8d8">
+                  <Label layoutX="188.0" layoutY="71.0" prefHeight="27.0" prefWidth="495.0" text="Welcome to HealthLink Hospital System" textFill="#e1d8d8">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
@@ -28,19 +28,24 @@
                         <Font name="Arial Bold" size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="vieweportsBtn" layoutX="643.0" layoutY="252.0" mnemonicParsing="false" onAction="#onClickReports" prefHeight="92.0" prefWidth="142.0" text="Reports">
+                  <Button fx:id="vieweportsBtn" layoutX="632.0" layoutY="252.0" mnemonicParsing="false" onAction="#onClickReports" prefHeight="92.0" prefWidth="142.0" text="Reports">
                      <font>
                         <Font name="Arial Bold" size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="makeAppoinmentBtn" layoutX="107.0" layoutY="397.0" mnemonicParsing="false" onAction="#onClickMakeAppoinment" prefHeight="92.0" prefWidth="146.0" text="Make Appoinments">
+                  <Button fx:id="makeAppoinmentBtn" layoutX="224.0" layoutY="397.0" mnemonicParsing="false" onAction="#onClickMakeAppoinment" prefHeight="92.0" prefWidth="146.0" text="Make Appoinments">
                      <font>
                         <Font name="Arial Bold" size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="billingBtn" layoutX="370.0" layoutY="396.0" mnemonicParsing="false" onAction="#onClickBilling" prefHeight="92.0" prefWidth="146.0" text="Billing">
+                  <Button fx:id="billingBtn" layoutX="506.0" layoutY="397.0" mnemonicParsing="false" onAction="#onClickBilling" prefHeight="92.0" prefWidth="146.0" text="Billing">
                      <font>
                         <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="logoutBtn" layoutX="811.0" layoutY="33.0" mnemonicParsing="false" onAction="#onClickLogout" text="Log out">
+                     <font>
+                        <Font name="Arial Bold" size="14.0" />
                      </font>
                   </Button>
                </children>
