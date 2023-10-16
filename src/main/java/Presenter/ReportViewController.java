@@ -27,6 +27,8 @@ public class ReportViewController implements Initializable {
     private Button btnAppointmentReport;
     @FXML
     private Button btnFinancialReport;
+    @FXML
+    private Button btnBackToHome;
 
     /**
      * Initializes the controller class.
@@ -58,6 +60,15 @@ public class ReportViewController implements Initializable {
     private void navigateToFinancialReport(ActionEvent event) {
         try {
             App.setRoot("FinancialReportView");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    void navigateToHome(ActionEvent event) {
+        try {
+            App.setRoot("AdminView");
         } catch (IOException ex) {
             ex.printStackTrace();
         }

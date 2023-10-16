@@ -40,8 +40,6 @@ public class FinancialReportViewController implements Initializable {
     @FXML
     private ComboBox<String> cmbMonth;
     @FXML
-    private Button btnBackToHome;
-    @FXML
     private Button btnBack;
     @FXML
     private Button btnGenerate;
@@ -57,15 +55,6 @@ public class FinancialReportViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         cmbMonth.getItems().addAll("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
         cmbYear.getItems().addAll(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023);
-    }
-
-    @FXML
-    private void backToHome(ActionEvent event) {
-        try {
-            App.setRoot("AdminView");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
     }
 
     @FXML

@@ -55,7 +55,7 @@
 					<text><![CDATA[Health Care System]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="SubTitle" x="83" y="66" width="249" height="29" uuid="2d13f838-7d19-405a-9e3a-8eab4352db60"/>
+					<reportElement style="SubTitle" x="76" y="66" width="257" height="29" uuid="2d13f838-7d19-405a-9e3a-8eab4352db60"/>
 					<textElement>
 						<font size="22" isBold="false"/>
 					</textElement>
