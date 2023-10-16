@@ -23,12 +23,13 @@ public class User {
     private String username;
     private String role;
     private String encryptedPassword; // Encoded password
+    private int userId;
     
     public User(String username) {
         this.username = username;
         this.fetchUserDetails();
     }
-    
+ 
     public User(
             int userId,
             String name, 
@@ -44,11 +45,21 @@ public class User {
         this.username = usernane;
         this.encryptedPassword = Helper.encryptPassword(decryptedPassword);
         this.role = role;
+        this.userId = userId;
     }
     
     public String getUsername() {
         return this.username;
     }
+    
+    public String getname() {
+        return this.name;
+    }
+    
+    public int getUserId() {
+        return this.userId;
+    }
+    
     
     public String getEncryptedPassword() {
         return this.encryptedPassword;
@@ -61,7 +72,7 @@ public class User {
     public String getRole() {
         return this.role;
     }
-    
+
     private void fetchUserDetails() {
         User userModel = null;
         String query = "SELECT * from " + TableName.user

@@ -15,4 +15,10 @@ public class TableName {
     static String patient_report = "Patient_Report";
     static String appoinment_report = "Appoinment_Report";
     static String invoice_report = "Invoice_Report";
+ 
+    public static String doctor = "Doctor"; // Add the doctor table
+    public static String appointment = "Appointment"; // Add the Appointment table
+    public static String timeslot = "Timeslot";
+    public static String invoice = "Invoice";
+
 }
