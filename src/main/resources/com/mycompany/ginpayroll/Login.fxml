@@ -38,7 +38,7 @@
          <left>
             <AnchorPane prefHeight="563.0" prefWidth="291.0" style="-fx-background-color: #4B67A2;" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="42.0" layoutY="273.0" text="Healthcare " textFill="#d1d2dd">
+                  <Label layoutX="42.0" layoutY="273.0" text="HealthLink " textFill="#d1d2dd">
                      <font>
                         <Font name="Arial Bold" size="36.0" />
                      </font>
@@ -46,6 +46,11 @@
                   <Label layoutX="50.0" layoutY="217.0" text="WELCOME TO" textFill="#c7c8d0">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="61.0" layoutY="328.0" text="Hospital" textFill="#d1d2dd">
+                     <font>
+                        <Font name="Arial Bold" size="36.0" />
                      </font>
                   </Label>
                </children></AnchorPane>

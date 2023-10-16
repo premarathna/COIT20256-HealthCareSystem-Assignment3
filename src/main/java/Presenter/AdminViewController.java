@@ -33,6 +33,8 @@ public class AdminViewController implements Initializable {
     private Button makeAppoinmentBtn;
     @FXML
     private Button billingBtn;
+    @FXML
+    private Button logoutBtn;
     /**
      * Initializes the controller class.
      */
@@ -74,6 +76,15 @@ public class AdminViewController implements Initializable {
 
     @FXML
     private void onClickBilling(ActionEvent event) {
+    }
+
+    @FXML
+    private void onClickLogout(ActionEvent event) {
+        try {
+            App.setRoot("Login");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
 }
