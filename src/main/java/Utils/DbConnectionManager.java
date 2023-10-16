@@ -197,7 +197,25 @@ public class DbConnectionManager {
                 statement.addBatch(createQuery);
                 statement.addBatch(incrementQuery);
                 //statement.addBatch(fkConstraint);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 
+    
+    private void createDoctorTableIfNeeded() {
+        if (!doesTableExist(TableName.doctor)) {
+            String createQuery = "CREATE TABLE " + TableName.doctor + " (\n"
+                    + "doctorId INT NOT NULL AUTO_INCREMENT, \n"
+                    + "userId INT NOT NULL, \n"
+                    + "availability VARCHAR(255) NOT NULL, \n"
+                    + "name VARCHAR(255), \n" // Add the 'name' column
+                    + "PRIMARY KEY (doctorId)"
+                    + ");";
+            try {
+                Statement statement = connection.createStatement();
+                statement.addBatch(createQuery);
                 statement.executeBatch();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -224,6 +242,7 @@ public class DbConnectionManager {
         }
     }
     
+
 
 
     private void createInvoiceReportTableIfNeeded() {
@@ -254,7 +273,6 @@ public class DbConnectionManager {
             }
         }
     }
-
 
     private void createTimeslotTableIfNeeded() {
     if (!doesTableExist(TableName.timeslot)) {
