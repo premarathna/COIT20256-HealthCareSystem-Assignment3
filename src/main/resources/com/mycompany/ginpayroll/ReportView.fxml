@@ -5,29 +5,46 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
 <AnchorPane id="AnchorPane" prefHeight="563.0" prefWidth="905.0" style="-fx-background-color: #4B67A2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenter.ReportViewController">
+=======
+
+<AnchorPane id="AnchorPane" prefHeight="563.0" prefWidth="905.0" style="-fx-background-color: #0a0d61;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="Presenter.ReportViewController">
+>>>>>>> cc57369 (Create ReportView.fxml)
    <children>
       <Label layoutX="259.0" layoutY="68.0" text="Welcome to Healthcare System" textFill="#e1d8d8">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
       </Label>
+<<<<<<< HEAD
       <Button fx:id="btnPatientReport" layoutX="46.0" layoutY="253.0" mnemonicParsing="false" onAction="#navigateToPatientReport" prefHeight="92.0" prefWidth="153.0" text="Patient Report">
+=======
+      <Button fx:id="btnPatientReport" layoutX="155.0" layoutY="251.0" mnemonicParsing="false" onAction="#navigateToPatientReport" prefHeight="92.0" prefWidth="153.0" text="Patient Report">
+>>>>>>> cc57369 (Create ReportView.fxml)
          <font>
             <Font name="Arial Bold" size="13.0" />
          </font>
       </Button>
+<<<<<<< HEAD
       <Button fx:id="btnAppointmentReport" layoutX="267.0" layoutY="253.0" mnemonicParsing="false" onAction="#navigateToAppointmentReport" prefHeight="92.0" prefWidth="153.0" text="Appointment Report">
+=======
+      <Button fx:id="btnAppointmentReport" layoutX="376.0" layoutY="251.0" mnemonicParsing="false" onAction="#navigateToAppointmentReport" prefHeight="92.0" prefWidth="153.0" text="Appointment Report">
+>>>>>>> cc57369 (Create ReportView.fxml)
          <font>
             <Font name="Arial Bold" size="13.0" />
          </font>
       </Button>
+<<<<<<< HEAD
       <Button fx:id="btnFinancialReport" layoutX="489.0" layoutY="253.0" mnemonicParsing="false" onAction="#navigateToFinancialReport" prefHeight="92.0" prefWidth="153.0" text="Financial Report">
          <font>
             <Font name="Arial Bold" size="13.0" />
          </font>
       </Button>
       <Button fx:id="btnBackToHome" layoutX="707.0" layoutY="253.0" mnemonicParsing="false" onAction="#navigateToHome" prefHeight="92.0" prefWidth="153.0" text="Back to Home">
+=======
+      <Button fx:id="btnFinancialReport" layoutX="598.0" layoutY="251.0" mnemonicParsing="false" onAction="#navigateToFinancialReport" prefHeight="92.0" prefWidth="153.0" text="Financial Report">
+>>>>>>> cc57369 (Create ReportView.fxml)
          <font>
             <Font name="Arial Bold" size="13.0" />
          </font>

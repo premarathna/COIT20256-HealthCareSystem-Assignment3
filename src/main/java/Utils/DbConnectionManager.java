@@ -27,7 +27,7 @@ public class DbConnectionManager {
 
     private String dbName = "hospital_db";
     private String user = "root";
-    private String password = "Devsh@456";//asdf1234
+    private String password = "123123";//asdf1234
     private String url = "jdbc:mysql://localhost";
 
     public DbConnectionManager() {
@@ -192,20 +192,19 @@ public class DbConnectionManager {
 
             String incrementQuery = "ALTER TABLE " + TableName.appoinment_report + " AUTO_INCREMENT = 3001";
 
-            try {
-                Statement statement = connection.createStatement();
-                statement.addBatch(createQuery);
-                statement.addBatch(incrementQuery);
-                //statement.addBatch(fkConstraint);
-
-                statement.executeBatch();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+       try {
+            Statement statement = connection.createStatement();
+            statement.addBatch(createQuery);
+            statement.addBatch(incrementQuery);
+            statement.executeBatch();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
             }
         }
     }
+
     
-        private void createDoctorTableIfNeeded() {
+    private void createDoctorTableIfNeeded() {
         if (!doesTableExist(TableName.doctor)) {
             String createQuery = "CREATE TABLE " + TableName.doctor + " (\n"
                     + "doctorId INT NOT NULL AUTO_INCREMENT, \n"
@@ -226,6 +225,7 @@ public class DbConnectionManager {
     
 
 
+
     private void createInvoiceReportTableIfNeeded() {
         if (!doesTableExist(TableName.invoice_report)) {
             String createQuery = "CREATE TABLE " + TableName.invoice_report + " (\n"
@@ -240,21 +240,18 @@ public class DbConnectionManager {
                     + "patientLName varchar(255) NOT NULL, \n"
                     + "PRIMARY KEY (appoinmentReportId));";
 
-            String incrementQuery = "ALTER TABLE " + TableName.invoice_report + " AUTO_INCREMENT = 4001";
+            String incrementQuery = "ALTER TABLE " + TableName.invoice_report + " AUTO_INCREMENT = 2001";
 
-            try {
-                Statement statement = connection.createStatement();
-                statement.addBatch(createQuery);
-                statement.addBatch(incrementQuery);
-                //statement.addBatch(fkConstraint);
-
-                statement.executeBatch();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+       try {
+            Statement statement = connection.createStatement();
+            statement.addBatch(createQuery);
+            statement.addBatch(incrementQuery);
+            statement.executeBatch();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
             }
         }
     }
-
 
     private void createTimeslotTableIfNeeded() {
     if (!doesTableExist(TableName.timeslot)) {
